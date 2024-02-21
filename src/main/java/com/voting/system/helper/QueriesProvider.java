@@ -20,7 +20,10 @@ public class QueriesProvider {
 	public static String queryForStudentInfoWithBranchAndYearId = "select " + "student.id, " + "student.firstName, "
 			+ "student.middleName, " + "student.lastName, " + "student.enrolment_number, " + "student.address, "
 			+ "student.email, " + "student.pass, " + "student.student_image, " + "student.branch_id,"
-			+ "branch.branch_name, " + "student.year_id," + "acc_year.year_name " + "from student "
+			+ "branch.branch_name, " + "student.year_id,"
+			+ "student.phone_number,"
+			
+			+ "acc_year.year_name " + "from student "
 			+ "inner join branch on student.branch_id = branch.id "
 			+ "inner join acc_year on student.year_id = acc_year.id ";
 
@@ -56,6 +59,25 @@ public class QueriesProvider {
 			"from candidate "+
 			"inner join student on candidate.student_id =  student.id " +
 			"inner join election on candidate.election_id =  election.id " ;
+	
+	
+	
+	public static String CandiateCampainQuery = "select " + 
+			"candidate.id, "+
+			"candidate.partyName, "  +
+			"candidate.partySymbol, "  +
+			"candidate.slogan , " +
+			"student.id as student_id, "+
+			"student.firstName, "  +
+			"student.middleName, "  +
+			"student.lastName, " +
+			"student.student_image, " +
+			"branch.branch_name, " +
+			"acc_year.year_name " +
+			"from candidate " + 
+			"inner join student on student.id = candidate.student_id " +
+			"inner join branch on branch.id = student.branch_id " +
+			"inner join acc_year on acc_year.id = student.year_id " ;
 
 
 }

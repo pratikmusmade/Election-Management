@@ -50,7 +50,7 @@
 							<span class="input-group-text bg-dark text-light"
 								id="basic-addon1"> <strong> Candidate Name </strong>
 							</span> <input readonly="readonly" value="<%=studentName%>"
-								name="studentName" type="text"
+								name="studentName" type="text" id="cnadidateFullName"
 								class="form-control bg-dark text-white" aria-label="Username"
 								aria-describedby="basic-addon1">
 
@@ -140,10 +140,12 @@
 						ResultSet rs = stmt.executeQuery();
 						int ind = 1;
 						while (rs.next()) {
+							String studentFullName = rs.getString("firstName") + " " + rs.getString("middleName") + " "
+							+ rs.getString("lastName");
 						%>
 						<tr>
 							<th scope="row"><%=ind%></th>
-							<td><%=rs.getString("firstName") + " " + rs.getString("middleName") + " " + rs.getString("lastName")%></td>
+							<td><%=studentFullName%></td>
 							<td><%=rs.getString("partyName")%></td>
 							<td><img src="<%=rs.getString("partySymbol")%>"
 								class="img-thumbnail" alt="..."
@@ -151,7 +153,10 @@
 							<td><%=rs.getString("slogan")%></td>
 
 							<td><button type="button" class="btn btn-outline-warning"
-									onclick="updateCandidate('<%=rs.getString("id")%>','<%=rs.getString("partyName")%>','<%=rs.getString("slogan")%>','<%=rs.getString("partySymbol")%>')">Update</button>
+									onclick="
+									updateCandidate('<%=rs.getString("id")%>','<%=rs.getString("partyName")%>',
+									'<%=rs.getString("slogan")%>','<%=rs.getString("partySymbol")%>',
+									'<%=studentFullName%>')">Update</button>
 								&nbsp &nbsp
 								<button type="button" class="btn btn-outline-danger"
 									id="deleteBranch">Delete</button></td>
@@ -191,10 +196,9 @@
 				contentType : false,
 				cache : false,
 	            success: function (response) {
-	            	console.log(response.trim())
 	              if (response.trim()[0] === "1") {
 	                Swal.fire({
-	                  title: "Branch "+ response.trim().slice(1) + " Successfully",
+	                  title: "Candidate "+ response.trim().slice(1),
 	                  text: "Click OK to continue!",
 	                  icon: "success",
 	                }).then((res) => {
@@ -204,7 +208,7 @@
 	                Swal.fire({
 	                  icon: "error",
 	                  title: "Oops...",
-	                  text: "Something went wrong!",
+	                  text: response.trim().slice(1),
 	                });
 	              }
 	            },
@@ -220,12 +224,10 @@
 		const partySlogan1 = document.querySelector("#partySlogan");
 		const partySymbol1 = document.querySelector("#partySymbol");
 		const partyLable = document.querySelector("#partySymbolLable");
+		const cnadidateFullName = document.querySelector("#cnadidateFullName");
 
-		
-		
-/* 		console.log(partyName,partySlogan,partySymbol,partyLable);
- */		
-		
+		cnadidateFullName
+	
 
 		
 	 	 cancelBtn.addEventListener("click",(e)=>{
@@ -238,13 +240,15 @@
 			partySlogan1.value = ""
 			partyLable.innerHTML = ""
 			partyLable.classList = ""
+				cnadidateFullName.value = '<%=studentName%>'
+
 			requestUrl = "DB/AddCandidateDB.jsp";
 		}) 
 		
-		function updateCandidate(candidateId,partyName,partySlogan,partySymbol){	 		 
+		function updateCandidate(candidateId,partyName,partySlogan,partySymbol,fullName){	 		 
 			submitBtn.className = "btn btn-success"
 			submitBtn.innerHTML = "Update Branch"
-			
+			cnadidateFullName.value = fullName
 			partyName1.value = partyName
 			partySlogan1.value = partySlogan
 			partyLable.innerHTML = "<strong> :- " + partySymbol + "</strong>"
@@ -277,7 +281,7 @@
 				        type: "POST",
 				        data: {branchId},
 				        success: function(response) {
-				              if (response.trim() === "1") {
+				              if (response.trim()=== "1") {
 				                  Swal.fire({
 				                    title: "Branch Deleted Successfully",
 				                    text: "Click OK to continue!",

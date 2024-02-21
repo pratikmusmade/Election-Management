@@ -2,6 +2,9 @@ package com.voting.system.helper;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class ConnectionProvider {
 	private static Connection con;
@@ -11,12 +14,36 @@ public class ConnectionProvider {
 
 			if (con == null) {
 				Class.forName("com.mysql.cj.jdbc.Driver");
-				con = DriverManager.getConnection(
-						"jdbc:mysql://localhost:3306/voting_app?characterEncoding=utf8", "root", "root");
+				con = DriverManager.getConnection("jdbc:mysql://localhost:3306/voting_app?characterEncoding=utf8",
+						"root", "root");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return con;
+	}
+
+	public static boolean studentHasVoted(String studentId) {
+		String query = "select count(voter_id) as count from vote where voter_id=?";
+		try {
+			PreparedStatement statement = con.prepareStatement(query);
+			statement.setString(1, studentId);
+
+			ResultSet resultSet = statement.executeQuery();
+
+			if (resultSet.next()) {
+				int count = resultSet.getInt("count");
+				if (count > 0) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return true;
+
 	}
 }

@@ -1,3 +1,4 @@
+<%@page import="java.sql.SQLIntegrityConstraintViolationException"%>
 <%@page import="com.oreilly.servlet.MultipartRequest"%>
 <%@page import="com.voting.system.helper.ConnectionProvider"%>
 <%@page import="java.sql.PreparedStatement"%>
@@ -21,8 +22,15 @@ pstmt.setString(1, studentId);
 pstmt.setString(2, electionId);
 pstmt.setString(3, partyName);
 pstmt.setString(4, "../assets/images/" + m.getFilesystemName("partySymbol"));
-pstmt.setString(5,partySlogan);
-
-out.print(pstmt.executeUpdate());
-
+ pstmt.setString(5, partySlogan);
+  try {
+	out.print(pstmt.executeUpdate()+"Added Successfully !!");
+} catch (SQLIntegrityConstraintViolationException e) {
+	System.out.print(e.getMessage());
+	e.printStackTrace();
+	out.print(0 + "Dublicate Candidate Entry");
+} catch(Exception e){
+	e.printStackTrace();
+	out.print(0 + "Internal Server Error !!");
+}
 %>

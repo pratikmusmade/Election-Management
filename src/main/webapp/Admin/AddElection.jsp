@@ -109,6 +109,36 @@
 
 
 	<script type="text/javascript">
+      $(document).ready(function () {
+    	  
+        $("#addElection").submit(function (e) {
+          e.preventDefault();
+          $.ajax({
+            type: "POST",
+            url: requestUrl,
+            data: $("#addElection").serialize(),
+            success: function (response) {
+            	
+            	console.log(response.trim())
+              if (response.trim()[0] === "1") {
+                Swal.fire({
+                  title: "Election "+ response.trim().slice(1) + " Successfully",
+                  text: "Click OK to continue!",
+                  icon: "success",
+                }).then((res) => {
+                  window.location.reload();
+                });
+              } else {
+                Swal.fire({
+                  icon: "error",
+                  title: "Oops...",
+                  text: "Something went wrong!",
+                });
+              }
+            },
+          });
+        });
+      });
 	
 	
 	const cancelBtn = document.querySelector("#deleteElection");
@@ -178,36 +208,6 @@
 		inputElection.focus()
 	}
 
-      $(document).ready(function () {
-    	  
-        $("#addElection").submit(function (e) {
-          e.preventDefault();
-          $.ajax({
-            type: "POST",
-            url: requestUrl,
-            data: $("#addElection").serialize(),
-            success: function (response) {
-            	
-            	console.log(response.trim())
-              if (response.trim()[0] === "1") {
-                Swal.fire({
-                  title: "Election "+ response.trim().slice(1) + " Successfully",
-                  text: "Click OK to continue!",
-                  icon: "success",
-                }).then((res) => {
-                  window.location.reload();
-                });
-              } else {
-                Swal.fire({
-                  icon: "error",
-                  title: "Oops...",
-                  text: "Something went wrong!",
-                });
-              }
-            },
-          });
-        });
-      });
     </script>
 
 </body>

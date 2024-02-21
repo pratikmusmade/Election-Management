@@ -28,7 +28,7 @@
 				ResultSet rs2;
 				
 				while (rs.next()) {
-					System.out.println("hh");
+					System.out.println("Enrollment Number => " +rs.getString("enrolment_number"));
 					
 				%>
 				<form class="row g-3" novalidate method="post" id="updateStudent"
@@ -59,7 +59,7 @@
 
 					<div class="col-md-6">
 						<label for="validationServer04" class="form-label">Enrollment
-							Number</label> <input type="number" class="form-control is-valid"
+							Number</label> <input type="text" class="form-control is-valid"
 							id="validationServer04" name="enrollmentNumber"
 							value="<%=rs.getString("enrolment_number")%>" required />
 						<div class="valid-feedback">Looks good!</div>
@@ -113,7 +113,9 @@
 					<div class="col-md-6">
 						<label for="validationServer07" class="form-label">Phone
 							Number</label> <input type="number" class="form-control is-valid"
-							id="validationServer07" name="phoneNumber" required />
+							id="validationServer07" name="phoneNumber" 
+							 value="<%=rs.getString("phone_number")%>"
+							required />
 						<div class="valid-feedback">Looks good!</div>
 					</div>
 
