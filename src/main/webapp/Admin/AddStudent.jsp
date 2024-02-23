@@ -23,7 +23,7 @@
 			<div class="col-lg-8">
 				<h1>Add Student</h1>
 
-				<form class="row g-3" name="myForm" novalidate method="post" id="addWaredn"
+				<form class="row g-3" name="myForm"  method="post" id="addWaredn"
 					enctype="multipart/form-data">
 					<div class="col-md-4">
 						<label for="validationServer01" class="form-label">First
@@ -35,8 +35,7 @@
 						<label for="validationServer02" class="form-label">Middle
 							name</label> <input type="text" class="form-control"
 							id="validationServer02" name="middleName" onblur="validate(event,'midName-validation')" required />
-						<small
-							class="text-danger" id="midName-validation"></small>
+						<small class="text-danger" id="midName-validation"></small>
 					</div>
 
 					<div class="col-md-4">
