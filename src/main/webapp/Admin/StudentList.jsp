@@ -13,6 +13,7 @@
 </head>
 <body>
 	<jsp:include page="../Components/NavBar.jsp"></jsp:include>
+	<jsp:include page="../Components/SideBar.jsp"></jsp:include>
 	<%
 	Connection con = ConnectionProvider.getConnection();
 		PreparedStatement pstm;
