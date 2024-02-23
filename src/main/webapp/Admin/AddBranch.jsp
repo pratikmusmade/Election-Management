@@ -17,12 +17,13 @@
 		<div class="row">
 			<div class="col-sm-2"></div>
 			<div class="col-sm-8 mt-5 p-2">
-				<form action="DB/AddBranchDB.jsp" id="addBranch">
+				<form action="DB/AddBranchDB.jsp"  id="addBranch" name="myForm" >
 					<h1>Add Branch</h1>
 					<div class="mb-3">
 						<label for="exampleInput" class="form-label">Enter Branch</label>
 						<input type="text" class="form-control" id="exampleInput"
-							aria-describedby="textHelp" name="branchName" />
+							aria-describedby="textHelp" name="branchName" required />
+							
 					</div>
 
 					<button type="submit" class="btn btn-primary px-4"
@@ -181,6 +182,9 @@
           });
         });
       });
+      
+      
+      
     </script>
 
 </body>

@@ -20,7 +20,7 @@
 					<div class="mb-3">
 						<label for="exampleInput" class="form-label">Enter Year</label> <input
 							type="text" class="form-control" id="exampleInput"
-							aria-describedby="textHelp" name="yearName" />
+							aria-describedby="textHelp" name="yearName" required/>
 					</div>
 
 					<button 
