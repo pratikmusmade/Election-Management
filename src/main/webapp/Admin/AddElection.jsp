@@ -1,3 +1,4 @@
+
 <%@page import="com.voting.system.helper.ConnectionProvider"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
@@ -16,10 +17,11 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-2"></div>
-			<div
-				class="col-sm-8 mt-5 p-4 rounded border border-3 border-secondary	">
-				<form class="row g-3" action="DB/AddBranchDB.jsp" id="addElection">
-					<h1>Add Election</h1>
+			<div class="col-sm-8">
+				<form
+					class="row g-3 m-2 px-4 pb-4 border border-dark border-2 alert-secondary rounded"
+					action="DB/AddBranchDB.jsp" id="addElection">
+					<h1 class="bg-dark text-white p-2 rounded-3">Add Election</h1>
 					<div class="col-md-8">
 						<div class="mb-3">
 							<label for="exampleInput" class="form-label">Enter
@@ -46,7 +48,7 @@
 					<div class="col-md-6">
 						<button type="submit" class="btn btn-primary px-4"
 							id="branch-submit-btn">Add Election</button>
-						<button type="button" class="btn btn-danger" id="cancleBtn"
+						<button type="button" class="btn btn-danger" id="deleteElection"
 							style="display: none">Cancel</button>
 					</div>
 
@@ -61,11 +63,9 @@
 			<div class="col-lg-2"></div>
 			<div class="col-lg-8">
 				<h2>Branch List</h2>
-
-
-				<table class="table  table-bordered">
+				<table class="table table-bordered table-info table-striped">
 					<thead>
-						<tr>
+						<tr class="table-dark">
 							<th scope="col">Sr .</th>
 							<th scope="col">Election Name</th>
 							<th scope="col">Status</th>
@@ -87,12 +87,39 @@
 							<td><%=rs.getString("election_name")%></td>
 							<td><%=rs.getString("election_status")%></td>
 
-							<td><button type="button" class="btn btn-outline-warning"
+							<td class="d-flex justify-content-center"><button
+									type="button" class="btn btn-warning"
 									onclick="updateElection(<%=rs.getString("id")%>,'<%=rs.getString("election_name")%>')">Update</button>
 								&nbsp &nbsp
-								<button type="button" class="btn btn-outline-danger"
+								<button type="button" class="btn btn-danger"
 									onclick="deleteElection(<%=rs.getString("id")%>,'<%=rs.getString("election_name")%> ')"
-									id="deleteElection">Delete</button></td>
+									id="deleteElection">Delete</button> &nbsp &nbsp
+
+								<form action="AddCandidate.jsp" method="post">
+									<input style="display: none" type="text" name="electionId"
+										value="<%=rs.getString("id")%>"> 
+										<input
+										style="display: none"
+										value="<%=rs.getString("election_name")%>" type="text"
+										name="electionName">
+										<input
+										style="display: none"
+										value="<%=rs.getString("election_name")%>" type="text"
+										name="electionStatus"
+										>
+									<button type="submit" class="btn btn-info">View Candidate</button>
+								</form> 
+								&nbsp &nbsp
+								<form action="CandidateList.jsp" method="post"
+									style="display: <%=((!rs.getString("election_status").equals("In-Active")) ? "inline-block" : "none")%>;">
+									<input style="display: none" type="text" name="electionId"
+										value="<%=rs.getString("id")%>"> <input
+										style="display: none"
+										value="<%=rs.getString("election_name")%>" type="text"
+										name="electionName">
+									<button type="submit" class="btn btn-success">Add
+										Candidate</button>
+								</form></td>
 						</tr>
 
 						<%
@@ -202,7 +229,7 @@
 	function updateElection(electionId,electionName){
 		submitBtn.className = "btn btn-success"
 		submitBtn.innerHTML = "Update Election"
-			inputElection.value = electionName
+		inputElection.value = electionName
 		cancelBtn.style.display = "inline-block"
 		requestUrl = "DB/UpdateElectionDB.jsp?electionId=" + electionId;
 		inputElection.focus()

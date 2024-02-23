@@ -1,0 +1,41 @@
+@charset "ISO-8859-1";
+
+@import
+	url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Noto+Sans+KR:wght@100;200;300;400;500&display=swap')
+	;
+
+:root {
+	--offcanvas-width: 270px;
+	--topNavbarHeight: 56px;
+}
+
+.sidebar-nav {
+	width: var(--offcanvas-width);
+	font-family: "Inter", sans-serif;
+	font-weight: 800;
+}
+
+@media ( min-width :992px) {
+	.sidebar-nav {
+		transform: none;
+		visibility: visible !important;
+		top: var(--topNavbarHeight);
+		height: calc(100% - var(--topNavbarHeight));
+	}
+	#sideBarcollapseBtn {
+		display: none
+	}
+	main {
+		margin-left: var(--offcanvas-width);
+		margin-top: var(--topNavbarHeight);
+	}
+}
+
+.sidebar-link[aria-expanded=true] .right-icon{
+	transform:rotate(180deg);
+	transition:all ease-in-out 0.25s;
+}
+
+.sidebar-link[aria-expanded=false] .right-icon{
+	transition:all ease-in-out 0.25s;
+}
