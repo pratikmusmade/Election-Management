@@ -42,7 +42,7 @@
 					<div class="container">
 						<div class="row">
  							<div class="col-sm-12 px-3 alert alert-secondary rounded">
-								<form class="row g-3" id="addCandidate">
+								<form class="row g-3" id="addCandidate" name="myForm">
 									<h1>Candidate List</h1>
 									<input style="display: none;" name="electionId" type="text" value=<%=electionId%>>
 									<input style="display: none;" name="candidateId" type="text" id="candidateId">
@@ -75,7 +75,9 @@
 										<label for="exampleFormControlInput1" class="form-label">
 											<strong>Party Name</strong>
 										</label> <input type="text" class="form-control" name="partyName"
-											id="partyName">
+										onblur="validate(event,'partyName-validation')"	id="partyName" required>
+										<small class="text-danger"
+							id="partyName-validation"></small>
 									</div>
 
 
@@ -83,8 +85,9 @@
 										<label for="exampleFormControlInput1" class="form-label">
 											<strong>Party Slogan</strong>
 										</label> <input type="text" class="form-control" id="partySlogan"
-											name="partySlogan">
-
+										onblur="validate(event,'partSlogan-validation')"	name="partySlogan" required>
+											<small class="text-danger"
+							id="partSlogan-validation"></small>
 									</div>
 									<div class="col-md-6">
 										<label for="exampleFormControlInput1" class="form-label">
@@ -92,7 +95,9 @@
 										</label> <label for="exampleFormControlInput1" class="form-label"
 											id="partySymbolLable"> Party Symbol </label> <input
 											type="file" class="form-control" id="partySymbol"
-											name="partySymbol">
+									onblur="validate(event,'partSlogan-validation')"		name="partySymbol" required>
+												<small class="text-danger"
+							id="partySymbol-validation"></small>
 									</div>
 
 									<div class="col-md-6"></div>
@@ -374,6 +379,32 @@
 			candidateFullName.value = cFullName
 			candidateId.value = cId
 		}
+		
+		
+		const partyName = document.myForm.partyName
+		const partySlogan = document.myForm.partySlogan
+		const partySymbol =document.myForm.partySymbol
+	      
+	      function validate(event,targetedValue){
+	    	  if(event.target.value){
+
+	    			 event.target.classList.remove("is-invalid")
+	    		   event.target.classList.add("is-valid")
+	    		   
+	    	  }else{
+	    		  event.target.classList.remove("is-valid")
+	    		   event.target.classList.add("is-invalid")
+	    		  
+	    		  
+	    	  }
+	      }
+		
+		
+		
+		
+		
+		
+		
 	</script>
 
 </body>

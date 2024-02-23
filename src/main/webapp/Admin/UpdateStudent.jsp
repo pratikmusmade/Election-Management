@@ -12,7 +12,6 @@
 <body>
 	<jsp:include page="../Components/NavBar.jsp"></jsp:include>
 	<jsp:include page="../Components/SideBar.jsp"></jsp:include>
-
 	<main>
 		<div class="container p-3">
 			<div class="row justify-content-center">
@@ -187,6 +186,7 @@
 					}
 					%>
 
+
 				</div>
 			</div>
 		</div>
@@ -216,7 +216,7 @@
 				 text : "Click ok to continue !",
 				 icon : "success"
 				 }).then(()=>{
-				 window.location.reload();
+				 window.history.go(-1);
 				 });
 				 }else{
 				 Swal.fire({

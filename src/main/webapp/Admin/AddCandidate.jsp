@@ -18,12 +18,14 @@
 	String electionName = request.getParameter("electionName");
 	String electionStatus = request.getParameter("electionStatus");
 
-/* 	String studentName = request.getParameter("studentName");
-	String studentId = request.getParameter("studentId"); */
+	/* 	String studentName = request.getParameter("studentName");
+		String studentId = request.getParameter("studentId"); */
 	System.out.print(electionId + electionName + electionStatus);
 	%>
 	<jsp:include page="../Components/NavBar.jsp"></jsp:include>
-<%-- 	<div class="container">
+	<jsp:include page="../Components/SideBar.jsp"></jsp:include>
+
+	<%-- 	<div class="container">
 		<div class="row">
 			<div class="col-sm-2"></div>
 			<div class="col-sm-8 mt-3 px-3 py-4 alert alert-secondary rounded">
@@ -94,84 +96,86 @@
 		</div>
 	</div>
  --%>
-	<div class="container mt-3 alert alert-info rounded">
-		<div class="row">
-			<div class="col-lg-10">
+	<main>
+		<div class="container mt-3 alert alert-info rounded">
+			<div class="row">
+				<div class="col-lg-10">
 
-				<h2>
-					Candidates for <span class="badge bg-danger"><%=electionName%></span>
-					Election
-				</h2>
-			</div>
-
-			<div class="col-lg-2">
-
-				<div
-					class="d-flex align-items-center justify-content-center alert alert-danger p-0 rounded-pill">
-					<h5 class="mt-1">Status</h5>
-					<h6>
-						<span class="badge bg-success flex-fill mt-2 ms-2 px-3"><%=electionStatus%></span>
-					</h6>
+					<h2>
+						Candidates for <span class="badge bg-danger"><%=electionName%></span>
+						Election
+					</h2>
 				</div>
 
+				<div class="col-lg-2">
+
+					<div
+						class="d-flex align-items-center justify-content-center alert alert-danger p-0 rounded-pill">
+						<h5 class="mt-1">Status</h5>
+						<h6>
+							<span class="badge bg-success flex-fill mt-2 ms-2 px-3"><%=electionStatus%></span>
+						</h6>
+					</div>
+
+				</div>
 			</div>
-		</div>
-		<hr>
-		<div class="row">
-			<div class="col-lg-12 px-5">
-				<table class="table table-striped">
-					<thead>
-						<tr class="bg-dark text-white">
-							<th scope="col">Sr .</th>
-							<th scope="col">Candidate Name</th>
-							<th scope="col">Party Name</th>
-							<th scope="col">Party Symbol</th>
-							<th scope="col">Party Slogan</th>
-							<th scope="col">Election</th>
+			<hr>
+			<div class="row">
+				<div class="col-lg-12 px-5">
+					<table class="table table-striped">
+						<thead>
+							<tr class="bg-dark text-white">
+								<th scope="col">Sr .</th>
+								<th scope="col">Candidate Name</th>
+								<th scope="col">Party Name</th>
+								<th scope="col">Party Symbol</th>
+								<th scope="col">Party Slogan</th>
+								<th scope="col">Election</th>
 
-						</tr>
-					</thead>
-					<tbody class="alert alert-secondary ">
-						<%
-						Connection con = ConnectionProvider.getConnection();
-						PreparedStatement stmt = con.prepareStatement(QueriesProvider.CandidateInfo + "where election_id=?");
-						stmt.setString(1, electionId);
+							</tr>
+						</thead>
+						<tbody class="alert alert-secondary ">
+							<%
+							Connection con = ConnectionProvider.getConnection();
+							PreparedStatement stmt = con.prepareStatement(QueriesProvider.CandidateInfo + "where election_id=?");
+							stmt.setString(1, electionId);
 
-						ResultSet rs = stmt.executeQuery();
-						int ind = 1;
-						while (rs.next()) {
-							String studentFullName = rs.getString("firstName") + " " + rs.getString("middleName") + " "
-							+ rs.getString("lastName");
-						%>
-						<tr>
-							<th scope="row"><%=ind%></th>
-							<td><%=studentFullName%></td>
-							<td><%=rs.getString("partyName")%></td>
-							<td><img src="<%=rs.getString("partySymbol")%>"
-								class="img-thumbnail" alt="..."
-								style="height: 50px; width: 50px; border-radius: 100%"></td>
-							<td><%=rs.getString("slogan")%></td>
+							ResultSet rs = stmt.executeQuery();
+							int ind = 1;
+							while (rs.next()) {
+								String studentFullName = rs.getString("firstName") + " " + rs.getString("middleName") + " "
+								+ rs.getString("lastName");
+							%>
+							<tr>
+								<th scope="row"><%=ind%></th>
+								<td><%=studentFullName%></td>
+								<td><%=rs.getString("partyName")%></td>
+								<td><img src="<%=rs.getString("partySymbol")%>"
+									class="img-thumbnail" alt="..."
+									style="height: 50px; width: 50px; border-radius: 100%"></td>
+								<td><%=rs.getString("slogan")%></td>
 
-							<td><button type="button" class="btn btn-outline-warning"
-									onclick="
+								<td><button type="button" class="btn btn-outline-warning"
+										onclick="
 									updateCandidate('<%=rs.getString("id")%>','<%=rs.getString("partyName")%>',
 									'<%=rs.getString("slogan")%>','<%=rs.getString("partySymbol")%>',
 									'<%=studentFullName%>')">Update</button>
-								&nbsp &nbsp
-								<button type="button" class="btn btn-outline-danger"
-									id="deleteBranch">Delete</button></td>
-						</tr>
+									&nbsp &nbsp
+									<button type="button" class="btn btn-outline-danger"
+										id="deleteBranch">Delete</button></td>
+							</tr>
 
-						<%
-						ind++;
-						}
-						%>
-					</tbody>
-				</table>
+							<%
+							ind++;
+							}
+							%>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
-	</div>
 
+	</main>
 
 
 	<jsp:include page="../Components/Footer.jsp"></jsp:include>
