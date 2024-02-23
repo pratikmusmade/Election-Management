@@ -21,7 +21,7 @@
 		<div class="row">
 			<div class="col-lg-2"></div>
 			<div class="col-lg-8">
-				<h1>Add Student</h1>
+				<h1>Add Hello</h1>
 
 				<form class="row g-3" novalidate method="post" id="addWaredn"
 					enctype="multipart/form-data">
