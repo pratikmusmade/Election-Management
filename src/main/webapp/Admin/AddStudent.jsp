@@ -23,7 +23,7 @@
 			<div class="col-lg-8">
 				<h1>Add Hello</h1>
 
-				<form class="row g-3" name="myForm" novalidate method="post" id="addWaredn"
+				<form class="row g-3" name="myForm" method="post" id="addWaredn"
 					enctype="multipart/form-data">
 					<div class="col-md-4">
 						<label for="validationServer01" class="form-label">First
