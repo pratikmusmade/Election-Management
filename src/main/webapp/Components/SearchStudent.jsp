@@ -24,7 +24,7 @@ int branchId = Integer.parseInt(request.getParameter("branch_id"));
 String andClause = "";
 andClause += (firstName != null && !firstName.isEmpty()) ? " firstName LIKE '" + firstName + "%'": "";
 andClause += (middleName != null && !middleName.isEmpty()) ? (andClause.isEmpty() ? " middleName LIKE '" +middleName + "%'" : " and middleName LIKE '" + middleName + "%'") : "";
-andClause += (lastName != null && !lastName.isEmpty()) ? (andClause.isEmpty() ? "lastName LIKE '" + lastName + "%'": " and lastName LIKE '" + lastName + "%'") : "";
+andClause += (lastName != null && !lastName.isEmpty()) ? (andClause.isEmpty() ? " lastName LIKE '" + lastName + "%'": " and lastName LIKE '" + lastName + "%'") : "";
 andClause += (enrollmentNumber != null && !enrollmentNumber.isEmpty()) ? (andClause.isEmpty() ? " enrolment_number='" + enrollmentNumber +"'" : " and enrolment_number='" + enrollmentNumber + "'") : "";
 andClause += (branchId != 0) ? (andClause.isEmpty() ? " branch_id=" + branchId : " and branch_id=" + branchId) : "";
 andClause += (yearId != 0 ) ? (andClause.isEmpty() ? " year_id=" + yearId : " and year_id=" + yearId) : "";

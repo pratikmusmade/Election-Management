@@ -18,12 +18,12 @@
 	String electionName = request.getParameter("electionName");
 	String electionStatus = request.getParameter("electionStatus");
 
-	String studentName = request.getParameter("studentName");
-	String studentId = request.getParameter("studentId");
-	System.out.print(studentId + studentName + electionId + electionName + electionStatus);
+/* 	String studentName = request.getParameter("studentName");
+	String studentId = request.getParameter("studentId"); */
+	System.out.print(electionId + electionName + electionStatus);
 	%>
 	<jsp:include page="../Components/NavBar.jsp"></jsp:include>
-	<div class="container">
+<%-- 	<div class="container">
 		<div class="row">
 			<div class="col-sm-2"></div>
 			<div class="col-sm-8 mt-3 px-3 py-4 alert alert-secondary rounded">
@@ -93,7 +93,7 @@
 			</div>
 		</div>
 	</div>
-
+ --%>
 	<div class="container mt-3 alert alert-info rounded">
 		<div class="row">
 			<div class="col-lg-10">
@@ -240,8 +240,8 @@
 			partySlogan1.value = ""
 			partyLable.innerHTML = ""
 			partyLable.classList = ""
-				cnadidateFullName.value = '<%=studentName%>'
-
+<%-- 				cnadidateFullName.value = '<%=studentName%>'
+ --%>
 			requestUrl = "DB/AddCandidateDB.jsp";
 		}) 
 		

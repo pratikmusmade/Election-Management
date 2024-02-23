@@ -12,9 +12,10 @@ MultipartRequest m = new MultipartRequest(request, path, 1024 * 1024 * 1024);
 String partySlogan = m.getParameter("partySlogan");
 String partyName = m.getParameter("partyName");
 String electionId = m.getParameter("electionId");
-String studentId = m.getParameter("studentId");
+String studentId = m.getParameter("candidateId");
 Connection con = ConnectionProvider.getConnection();
 
+System.out.println(partySlogan + partyName + electionId + studentId);
 String query = "insert into candidate(student_id, election_id, partyName, partySymbol, slogan) values (?,?,?,?,?)";
 
 PreparedStatement pstmt = con.prepareStatement(query);

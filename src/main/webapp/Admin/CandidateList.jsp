@@ -14,111 +14,104 @@
 <body>
 	<jsp:include page="../Components/NavBar.jsp"></jsp:include>
 	<%
-	String electionId = "1";
-	String electionName = "";
+	//Take these values from request obj.
+	String electionId = request.getParameter("electionId");
+	String electionName = request.getParameter("electionName");
+	System.out.println(electionId + " " + electionName + " ");
 	String electionStatus = "";
 
 	Connection con = ConnectionProvider.getConnection();
 	PreparedStatement pstm;
-	pstm = con.prepareStatement("select * from election where id=" + electionId);
 
 	ResultSet rs;
-	String query = QueriesProvider.queryForStudentInfo + "order by id";
 	%>
-	<!-- Button trigger modal -->
-	<button type="button" class="btn btn-primary" data-bs-toggle="modal"
-		data-bs-target="#exampleModal">Launch demo modal</button>
-
 	<!-- Modal -->
 	<div class="modal fade" id="exampleModal" tabindex="-1"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
+		aria-labelledby="exampleModalLabel" aria-hidden="true"
+		data-bs-keyboard="false"  data-bs-backdrop="static"
+		>
+		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
 				</div>
-				<div class="modal-body">
-				
+				<div class="modal-body pb-3">
+
 					<div class="container">
-		<div class="row">
-			<div class="col-sm-2"></div>
-			<div class="col-sm-8 mt-3 px-3 py-4 alert alert-secondary rounded">
-				<form class="row g-3" id="addCandidate">
-					<h1>Candidate List</h1>
-					<input style="display: none" type="text" 
-						value=<%=electionId%>> <input style="display: none"
-						type="text" name="studentId" value=<%=studentId%>>
+						<div class="row">
+ 							<div class="col-sm-12 px-3 alert alert-secondary rounded">
+								<form class="row g-3" id="addCandidate">
+									<h1>Candidate List</h1>
+									<input style="display: none;" name="electionId" type="text" value=<%=electionId%>>
+									<input style="display: none;" name="candidateId" type="text" id="candidateId">
 
-					<div class="col-md-6">
-						<div class="input-group mb-3 border border-secondary">
-							<span class="input-group-text bg-dark text-light"
-								id="basic-addon1"> <strong> Election Name</strong>
-							</span> <input readonly="readonly" value="<%=electionName%>"
-								name="electionName" type="text"
-								class="form-control bg-dark text-white" aria-label="Username"
-								aria-describedby="basic-addon1">
+									<div class="col-md-6">
+										<div class="input-group mb-3 border border-secondary">
+											<span class="input-group-text bg-dark text-light"
+												id="basic-addon1"> <strong> Election Name</strong>
+											</span> <input readonly="readonly" value="<%=electionName%>"
+												name="electionName" type="text"
+												class="form-control bg-dark text-white"
+												aria-label="Username" aria-describedby="basic-addon1">
 
+										</div>
+									</div>
+
+									<div class="col-md-6">
+										<div class="input-group mb-3 border border-secondary">
+											<span class="input-group-text bg-dark text-light"
+												id="basic-addon1"> <strong> Candidate Name </strong>
+											</span> <input readonly="readonly" name="studentName" type="text"
+												id="cnadidateFullName"
+												class="form-control bg-dark text-white"
+												aria-label="Username" aria-describedby="basic-addon1">
+
+										</div>
+									</div>
+
+									<div class="col-md-6">
+										<label for="exampleFormControlInput1" class="form-label">
+											<strong>Party Name</strong>
+										</label> <input type="text" class="form-control" name="partyName"
+											id="partyName">
+									</div>
+
+
+									<div class="col-md-6">
+										<label for="exampleFormControlInput1" class="form-label">
+											<strong>Party Slogan</strong>
+										</label> <input type="text" class="form-control" id="partySlogan"
+											name="partySlogan">
+
+									</div>
+									<div class="col-md-6">
+										<label for="exampleFormControlInput1" class="form-label">
+											<strong>Party Symbol </strong>
+										</label> <label for="exampleFormControlInput1" class="form-label"
+											id="partySymbolLable"> Party Symbol </label> <input
+											type="file" class="form-control" id="partySymbol"
+											name="partySymbol">
+									</div>
+
+									<div class="col-md-6"></div>
+
+									<div class="col-6">
+										<button type="submit" class="btn btn-primary px-4"
+											id="branch-submit-btn">Add Candidate</button>
+										<button type="button" class="btn btn-danger" id="cancleBtn"
+											style="display: none">Cancel</button>
+									</div>
+								</form>
+
+							</div>
 						</div>
 					</div>
 
-					<div class="col-md-6">
-						<div class="input-group mb-3 border border-secondary">
-							<span class="input-group-text bg-dark text-light"
-								id="basic-addon1"> <strong> Candidate Name </strong>
-							</span> <input readonly="readonly" value="<%=studentName%>"
-								name="studentName" type="text" id="cnadidateFullName"
-								class="form-control bg-dark text-white" aria-label="Username"
-								aria-describedby="basic-addon1">
 
-						</div>
-					</div>
-
-					<div class="col-md-6">
-						<label for="exampleFormControlInput1" class="form-label">
-							<strong>Party Name</strong>
-						</label> <input type="text" class="form-control" name="partyName"
-							id="partyName">
-					</div>
-
-
-					<div class="col-md-6">
-						<label for="exampleFormControlInput1" class="form-label">
-							<strong>Party Slogan</strong>
-						</label> <input type="text" class="form-control" id="partySlogan"
-							name="partySlogan">
-
-					</div>
-					<div class="col-md-6">
-						<label for="exampleFormControlInput1" class="form-label">
-							<strong>Party Symbol </strong>
-						</label> <label for="exampleFormControlInput1" class="form-label"
-							id="partySymbolLable"> Party Symbol </label> <input type="file"
-							class="form-control" id="partySymbol" name="partySymbol">
-					</div>
-
-					<div class="col-md-6"></div>
-
-					<div class="col-6">
-						<button type="submit" class="btn btn-primary px-4"
-							id="branch-submit-btn">Add Candidate</button>
-						<button type="button" class="btn btn-danger" id="cancleBtn"
-							style="display: none">Cancel</button>
-					</div>
-				</form>
-
-			</div>
-		</div>
-	</div>
-				
-				
 				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary"
-						data-bs-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Save changes</button>
-				</div>
+				
 			</div>
 		</div>
 	</div>
@@ -136,14 +129,16 @@
 							<div class="col-lg-4">
 								<div class="input-group mb-3 border border-secondary">
 									<span class="input-group-text bg-dark text-light"
-										id="basic-addon1"> <strong> Election Id </strong>
+										id="basic-addon1"> <strong> Election Name </strong>
 									</span>
 									<%
+									pstm = con.prepareStatement("select * from election where id=" + electionId);
 									rs = pstm.executeQuery();
 									while (rs.next()) {
 										electionName = rs.getString("election_name");
 										electionStatus = rs.getString("election_status");
 									%>
+									<input style="display: none" name="electionId" value=<%=electionId %>>
 									<input disabled="disabled"
 										value="<%=rs.getString("election_name")%>" type="text"
 										class="form-control bg-dark text-white" aria-label="Username"
@@ -257,16 +252,19 @@
 					</thead>
 					<tbody id="listContainer">
 						<%
+						String query = QueriesProvider.queryForStudentInfo + "where student.id not in (select student_id from candidate  where election_id = ?)" + "order by id";
 						pstm = con.prepareStatement(query);
+						pstm.setString(1, electionId);
 						rs = pstm.executeQuery();
 						while (rs.next()) {
+							String stuFullName = rs.getString("firstName") + " " + rs.getString("middleName") + " " + rs.getString("lastName") + " ";
 						%>
 						<tr>
 							<th scope="row"><%=rs.getString("id")%></th>
 							<td><img src="<%=rs.getString("student_image")%>"
 								class="img-thumbnail" alt="..."
 								style="height: 50px; width: 50px; border-radius: 100%"></td>
-							<td><%=rs.getString("firstName") + " " + rs.getString("middleName") + " " + rs.getString("lastName") + " "%></td>
+							<td>stuFullName</td>
 							<td><%=rs.getString("enrolment_number")%></td>
 
 							<td><%=rs.getString("email")%></td>
@@ -279,10 +277,10 @@
 								<input style="display:none"  name= "electionId" type="text" value="<%=electionId %>" >
 								<input style="display:none"  name="electionName" type="text" value="<%=electionName%>" >
 								<input style="display:none"  name="electionStatus" type="text" value="<%=electionStatus%>" >
-								</form> --%> <button onclick="addCandidate()" type="submit"
-									class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Candidate</button> 
-
-								
+								</form> --%>
+								<button onclick="addCandidate('<%=rs.getString("id")%>','<%=stuFullName %>')" type="submit"
+									class="btn btn-success" data-bs-toggle="modal"
+									data-bs-target="#exampleModal">Add Candidate</button>
 							</td>
 
 						</tr>
@@ -300,14 +298,43 @@
 
 	<script type="text/javascript">
 			
-		studentName;
-		studetnId;
-		partySlogan;
-		partyName;
-		electionId;
+	const candidateFullName = document.querySelector("#cnadidateFullName");
+	const candidateId = document.querySelector("#candidateId");
 	
+	$(document).ready(function() {
+		$("#addCandidate").submit(function(event) {
+			event.preventDefault();
+			let f = new FormData($(this)[0]);
+
+			$.ajax({
+				type : "POST",
+				enctype : "multipart/form-data",
+				url : "DB/AddCandidateDB.jsp",
+				data : f,
+				processData : false,
+				contentType : false,
+				cache : false,
+				success : function(response) {
+					if (response.trim()[0] === "1") {
+						Swal.fire({
+							title : response.trim().slice(1),
+							text : "Click ok to continue !",
+							icon : "success"
+						}).then(()=>{
+			                  window.location.reload();
+						});
+					}else{
+						Swal.fire({
+							  title: response.trim().slice(1),
+							  text: "Click ok to continue ",
+							  icon: "error"
+							});
+					}
+				},
+			});
+		});
+	});
 	
-		
 		$(document).ready(function() {
 							$("#filter-form")
 									.submit(
@@ -316,7 +343,7 @@
 												$
 														.ajax({
 															type : 'POST',
-															url : "../Components/SearchStudent.jsp",
+															url : "../Components/SearchCandidate.jsp",
 															data : $(
 																	"#filter-form")
 																	.serialize(),
@@ -343,27 +370,9 @@
 											})
 						})
 						
-	function addCandidate(){
-			Swal.fire({
-				  title: "<strong>HTML <u>example</u></strong>",
-				  icon: "info",
-				  html: `
-				    You can use <b>bold text</b>,
-				    <a href="#">links</a>,
-				    and other HTML tags
-				  `,
-				  showCloseButton: true,
-				  showCancelButton: true,
-				  focusConfirm: false,
-				  confirmButtonText: `
-				    <i class="fa fa-thumbs-up"></i> Great!
-				  `,
-				  confirmButtonAriaLabel: "Thumbs up, great!",
-				  cancelButtonText: `
-				    <i class="fa fa-thumbs-down"></i>
-				  `,
-				  cancelButtonAriaLabel: "Thumbs down"
-				});
+	function addCandidate(cId,cFullName){
+			candidateFullName.value = cFullName
+			candidateId.value = cId
 		}
 	</script>
 

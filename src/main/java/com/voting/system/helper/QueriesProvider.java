@@ -62,11 +62,12 @@ public class QueriesProvider {
 	
 	
 	
-	public static String CandiateCampainQuery = "select " + 
+	public static String candiateCampainQuery = "select " + 
 			"candidate.id, "+
 			"candidate.partyName, "  +
 			"candidate.partySymbol, "  +
 			"candidate.slogan , " +
+			"candidate.election_id,"+
 			"student.id as student_id, "+
 			"student.firstName, "  +
 			"student.middleName, "  +
@@ -77,7 +78,8 @@ public class QueriesProvider {
 			"from candidate " + 
 			"inner join student on student.id = candidate.student_id " +
 			"inner join branch on branch.id = student.branch_id " +
-			"inner join acc_year on acc_year.id = student.year_id " ;
+			"inner join acc_year on acc_year.id = student.year_id " +
+			"where election_id = ?";
 
 
 }

@@ -29,7 +29,8 @@
 				String studentId = "5";
 
 				Connection con = ConnectionProvider.getConnection();
-				PreparedStatement stmt = con.prepareStatement(QueriesProvider.CandiateCampainQuery);
+				PreparedStatement stmt = con.prepareStatement(QueriesProvider.candiateCampainQuery);
+				stmt.setString(1, electionId);
 				ResultSet rs = stmt.executeQuery();
 
 				System.out.println(ConnectionProvider.studentHasVoted(studentId));
