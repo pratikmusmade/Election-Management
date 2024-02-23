@@ -6,13 +6,12 @@
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 <jsp:include page="../Components/Header.jsp"></jsp:include>
-<link rel="stylesheet" href="../assets/styles.css">
+
 </head>
 <body>
-	<jsp:include page="../Components/NavBar.jsp"></jsp:include>
 	<jsp:include page="../Components/SideBar.jsp"></jsp:include>
+	<jsp:include page="../Components/NavBar.jsp"></jsp:include>
 	
-
 	<main>
 		<div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
 			<div class="card-header">Header</div>

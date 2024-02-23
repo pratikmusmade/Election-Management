@@ -10,68 +10,71 @@
 </head>
 <body>
 	<jsp:include page="../Components/NavBar.jsp"></jsp:include>
+	<jsp:include page="../Components/SideBar.jsp"></jsp:include>
+	<main>
 
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-2"></div>
-			<div class="col-sm-8 mt-5 p-2">
-				<form action="DB/AddBranchDB.jsp" id="addBranch">
-					<h1>Add Branch</h1>
-					<div class="mb-3">
-						<label for="exampleInput" class="form-label">Enter Branch</label>
-						<input type="text" class="form-control" id="exampleInput"
-							aria-describedby="textHelp" name="branchName" />
-					</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-2"></div>
+				<div class="col-sm-8 mt-5 p-2">
+					<form action="DB/AddBranchDB.jsp" id="addBranch">
+						<h1>Add Branch</h1>
+						<div class="mb-3">
+							<label for="exampleInput" class="form-label">Enter Branch</label>
+							<input type="text" class="form-control" id="exampleInput"
+								aria-describedby="textHelp" name="branchName" />
+						</div>
 
-					<button type="submit" class="btn btn-primary px-4">Submit</button>
-				</form>
+						<button type="submit" class="btn btn-primary px-4">Submit</button>
+					</form>
+				</div>
 			</div>
 		</div>
-	</div>
 
-	<div class="container mt-5">
-		<div class="row">
-			<div class="col-lg-3"></div>
-			<div class="col-lg-6">
-				<h2>Branch List</h2>
-				
-				
-				<table class="table  table-bordered">
-					<thead>
-						<tr>
-							<th scope="col">Sr .</th>
-							<th scope="col">Branch</th>
-							<th scope="col">Operation</th>
-<!-- 							<th scope="col"></th>
- -->						</tr>
-					</thead>
-					<tbody>
-						<%
-						Connection con = ConnectionProvider.getConnection();
-						PreparedStatement stmt = con.prepareStatement("select * from branch");
-						ResultSet rs = stmt.executeQuery();
-						while (rs.next()) {
-						%>
-						<tr>
-							<th scope="row"><%=rs.getString("id")%></th>
-							<td><%=rs.getString("branch_name")%></td>
-							<td><a type="button" class="btn btn-outline-warning"
+		<div class="container mt-5">
+			<div class="row">
+				<div class="col-lg-3"></div>
+				<div class="col-lg-6">
+					<h2>Branch List</h2>
+
+
+					<table class="table  table-bordered">
+						<thead>
+							<tr>
+								<th scope="col">Sr .</th>
+								<th scope="col">Branch</th>
+								<th scope="col">Operation</th>
+								<!-- 							<th scope="col"></th>
+ -->
+							</tr>
+						</thead>
+						<tbody>
+							<%
+							Connection con = ConnectionProvider.getConnection();
+							PreparedStatement stmt = con.prepareStatement("select * from branch");
+							ResultSet rs = stmt.executeQuery();
+							while (rs.next()) {
+							%>
+							<tr>
+								<th scope="row"><%=rs.getString("id")%></th>
+								<td><%=rs.getString("branch_name")%></td>
+								<td><a type="button" class="btn btn-outline-warning"
 									href="UpdateBranch.jsp?wardenId=<%=rs.getString("id")%>">Update</a>
-							&nbsp &nbsp<a type="button" class="btn btn-outline-danger  "
+									&nbsp &nbsp<a type="button" class="btn btn-outline-danger  "
 									href="DeleteBranch.jsp?wardenId=<%=rs.getString("id")%>">Delete</a>
-							
-							</td>
-						</tr>
 
-						<%
-						}
-						%>
-					</tbody>
-				</table>
+								</td>
+							</tr>
+
+							<%
+							}
+							%>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
-	</div>
-
+	</main>
 	<jsp:include page="../Components/Footer.jsp"></jsp:include>
 
 

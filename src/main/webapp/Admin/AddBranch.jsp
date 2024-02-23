@@ -10,9 +10,10 @@
 <title>Bootstrap demo</title>
 <jsp:include page="../Components/Header.jsp"></jsp:include>
 </head>
-<body style="background-color: grey">
+<body>
 	<jsp:include page="../Components/NavBar.jsp"></jsp:include>
-
+	<jsp:include page="../Components/SideBar.jsp"></jsp:include>
+	<main>
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-2"></div>
@@ -79,7 +80,7 @@
 	</div>
 
 	<jsp:include page="../Components/Footer.jsp"></jsp:include>
-
+</main>
 
 	<script type="text/javascript">
 	
