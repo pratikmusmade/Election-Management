@@ -27,7 +27,7 @@
 							<label for="exampleInput" class="form-label">Enter
 								Election</label> <input type="text" class="form-control"
 								id="exampleInput" aria-describedby="textHelp"
-								name="electionName" />
+								name="electionName" required />
 						</div>
 					</div>
 
@@ -35,7 +35,7 @@
 						<div class="mb-3">
 							<label for="exampleInput" class="form-label">Enter
 								Election</label> <select name="electionStatus" class="form-select"
-								aria-label="Default select example">
+								aria-label="Default select example" >
 								<option selected value="Active">Active</option>
 								<option value="In-Active">In-Active</option>
 							</select>
@@ -234,6 +234,10 @@
 		requestUrl = "DB/UpdateElectionDB.jsp?electionId=" + electionId;
 		inputElection.focus()
 	}
+	
+	
+	
+
 
     </script>
 
