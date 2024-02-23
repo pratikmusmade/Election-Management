@@ -10,7 +10,21 @@
 </head>
 <body>
 	<jsp:include page="../Components/NavBar.jsp"></jsp:include>
+	<jsp:include page="../Components/SideBar.jsp"></jsp:include>
+	<main>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-2"></div>
+				<div class="col-sm-8 mt-5 p-2">
+					<form action="DB/AddBranchDB.jsp" id="addClass">
+						<h1>Add Year</h1>
+						<div class="mb-3">
+							<label for="exampleInput" class="form-label">Enter Year</label> <input
+								type="text" class="form-control" id="exampleInput"
+								aria-describedby="textHelp" name="yearName" />
+						</div>
 
+<<<<<<< HEAD
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-2"></div>
@@ -32,52 +46,58 @@
 					<button type="button" class="btn btn-danger" id="cancleBtn"
 						style="display: none">Cancel</button>
 				</form>
+=======
+						<button type="submit" class="btn btn-primary px-4"
+							id="year-submit-btn">Submit</button>
+						<button type="button" class="btn btn-danger" id="cancleBtn"
+							style="display: none">Cancel</button>
+					</form>
+				</div>
+>>>>>>> pratik
 			</div>
 		</div>
-	</div>
 
-	<div class="container mt-5">
-		<div class="row">
-			<div class="col-lg-3"></div>
-			<div class="col-lg-6">
-				<h2>Year List</h2>
-				<table class="table table-bordered">
-					<thead>
-						<tr>
-							<th scope="col">Sr .</th>
-							<th scope="col">Class</th>
-							<th scope="col" style="vertical-align: bottom;">Operation</th>
+		<div class="container mt-5">
+			<div class="row">
+				<div class="col-lg-3"></div>
+				<div class="col-lg-6">
+					<h2>Year List</h2>
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th scope="col">Sr .</th>
+								<th scope="col">Class</th>
+								<th scope="col" style="vertical-align: bottom;">Operation</th>
 
-						</tr>
-					</thead>
-					<tbody>
-						<%
-						Connection con = ConnectionProvider.getConnection();
-						PreparedStatement stmt = con.prepareStatement("select * from acc_year");
-						ResultSet rs = stmt.executeQuery();
-						while (rs.next()) {
-						%>
-						<tr>
-							<th scope="row"><%=rs.getString("id")%></th>
-							<td><%=rs.getString("year_name")%></td>
-							<td><button 
-							type="button" class="btn btn-outline-warning"
-							onclick="updateYear(<%=rs.getString("id")%>,'<%=rs.getString("year_name")%>')">Update</button>
-								&nbsp &nbsp
-								<button type="button" class="btn btn-outline-danger"
-									onclick="deleteYear(<%=rs.getString("id")%>,'<%=rs.getString("year_name")%>')"
-									id="deleteBranch">Delete</button></td>
-						</tr>
+							</tr>
+						</thead>
+						<tbody>
+							<%
+							Connection con = ConnectionProvider.getConnection();
+							PreparedStatement stmt = con.prepareStatement("select * from acc_year");
+							ResultSet rs = stmt.executeQuery();
+							while (rs.next()) {
+							%>
+							<tr>
+								<th scope="row"><%=rs.getString("id")%></th>
+								<td><%=rs.getString("year_name")%></td>
+								<td><button type="button" class="btn btn-outline-warning"
+										onclick="updateYear(<%=rs.getString("id")%>,'<%=rs.getString("year_name")%>')">Update</button>
+									&nbsp &nbsp
+									<button type="button" class="btn btn-outline-danger"
+										onclick="deleteYear(<%=rs.getString("id")%>,'<%=rs.getString("year_name")%>')"
+										id="deleteBranch">Delete</button></td>
+							</tr>
 
-						<%
-						}
-						%>
-					</tbody>
-				</table>
+							<%
+							}
+							%>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
-	</div>
-
+	</main>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 	<script
