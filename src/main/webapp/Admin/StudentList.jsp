@@ -22,13 +22,79 @@
 		String query = QueriesProvider.queryForStudentInfo + "order by id";
 		%>
 		<div class="container">
+		<div class="row"> <h1 class="text-center alert alert-danger px-4 py-1 m-2 rounded">Student List</h1>  </div>
 			<div class="row">
+			
 				<div class="col">
-					<form method="post" id="filter-form">
+					<form method="post" id="filter-form" class="m-2 px-4 py-1 border border-dark border-2 alert-secondary rounded">
 						<div class="container-fulid">
 							<div class="row mt-4 mb-3">
 
-								<div class="col-lg-7"></div>
+<%-- 
+								<div class="col-lg-4">
+									<div class="input-group mb-3 border border-secondary">
+										<span class="input-group-text bg-dark text-light"
+											id="basic-addon1"> <strong> Election Name </strong>
+										</span>
+										<%
+										pstm = con.prepareStatement("select * from election where id=" + electionId);
+										rs = pstm.executeQuery();
+										while (rs.next()) {
+											electionName = rs.getString("election_name");
+											electionStatus = rs.getString("election_status");
+										%>
+										<input style="display: none" name="electionId"
+											value=<%=electionId%>> <input disabled="disabled"
+											value="<%=rs.getString("election_name")%>" type="text"
+											class="form-control bg-dark text-white" aria-label="Username"
+											aria-describedby="basic-addon1">
+										<%
+										}
+										%>
+									</div>
+								</div> --%>
+
+								<div class="col-lg-4">
+									<div class="mb-3">
+										<div class="input-group mb-3">
+											<input type="text" class="form-control"
+												id="exampleFormControlInput1" placeholder="First Name"
+												name="firstName">
+										</div>
+									</div>
+								</div>
+
+
+								<div class="col-lg-4">
+									<div class="mb-3">
+										<div class="input-group mb-3">
+											<input type="text" class="form-control"
+												id="exampleFormControlInput1" placeholder="Middle Name"
+												name="middleName">
+										</div>
+									</div>
+								</div>
+
+								<div class="col-lg-4">
+									<div class="mb-3">
+										<div class="input-group mb-3">
+											<input type="text" class="form-control"
+												id="exampleFormControlInput1" placeholder="Last Name"
+												name="lastName">
+										</div>
+									</div>
+								</div>
+
+								<div class="col-lg-4">
+									<div class="mb-3">
+										<div class="input-group mb-3">
+											<input type="text" class="form-control"
+												id="exampleFormControlInput1" placeholder="Enrolment Number"
+												name="enrollmentNumber">
+										</div>
+									</div>
+								</div>
+
 								<div class="col-lg-2 ">
 									<select class="form-select" aria-label="Default select example"
 										name="branch_id">
@@ -63,9 +129,8 @@
 								</div>
 
 
-								<div class="col-lg-1">
-
-									<button type="submit" class="btn btn-primary">Filter</button>
+								<div class="col-lg-2">
+									<button type="submit" class="btn btn-info text-white form-control">Filter</button>
 								</div>
 							</div>
 						</div>
@@ -140,7 +205,7 @@
 												$
 														.ajax({
 															type : 'POST',
-															url : "../Components/TableFormat.jsp",
+															url : "../Components/SearchStudent.jsp",
 															data : $(
 																	"#filter-form")
 																	.serialize(),

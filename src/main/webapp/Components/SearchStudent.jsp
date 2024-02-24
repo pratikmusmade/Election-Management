@@ -34,9 +34,9 @@ boolean isDataPrinted = false;
 
 System.out.println(andClause);
   String query = QueriesProvider.queryForStudentInfo + (!andClause.isEmpty()?"where" : "");
- System.out.println(" Query ==> " + query + andClause);
+ System.out.println(" Query ==> " + query + andClause + " order by student.id");
 
-PreparedStatement pstm = con.prepareStatement(query + andClause);
+PreparedStatement pstm = con.prepareStatement(query + andClause + " order by student.id");
 
 ResultSet rs = pstm.executeQuery();
 
@@ -55,8 +55,11 @@ while (rs.next()) {
 	<td><%=rs.getString("email")%></td>
 	<td><%=rs.getString("branch_name")%></td>
 	<td><%=rs.getString("year_name")%></td>
-	<td><a type="button" class="btn btn-success"
-		href="UpdateStudent.jsp?studentId=<%=rs.getString("id")%>">Add Candidate</a>
+		<td><a type="button" class="btn btn-outline-warning"
+		href="UpdateStudent.jsp?studentId=<%=rs.getString("id")%>">Update</a>
+	</td>
+	<td><a type="button" class="btn btn-outline-danger"
+		href="DB/DeleteStudentDB.jsp?studentId=<%=rs.getString("id")%>">Delete</a>
 	</td>
 
 </tr>
