@@ -12,7 +12,7 @@
 		
 		<!-- 		offcanvas tigger    -->
 
-		<a class="navbar-brand text-uppercase" href="#">Navbar</a>
+		<a class="navbar-brand text-uppercase" href="#">Admin</a>
 	<!-- 	
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
 			data-bs-target="#navbarNavAltMarkup"

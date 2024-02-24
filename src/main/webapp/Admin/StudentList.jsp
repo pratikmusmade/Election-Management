@@ -22,15 +22,19 @@
 		String query = QueriesProvider.queryForStudentInfo + "order by id";
 		%>
 		<div class="container">
-		<div class="row"> <h1 class="text-center alert alert-danger px-4 py-1 m-2 rounded">Student List</h1>  </div>
+			<div class="row ">
+				<h1 class="text-center alert alert-danger px-4 py-1 m-2 rounded">Student
+					List</h1>
+			</div>
 			<div class="row">
-			
+
 				<div class="col">
-					<form method="post" id="filter-form" class="m-2 px-4 py-1 border border-dark border-2 alert-secondary rounded">
+					<form method="post" id="filter-form"
+						class="m-2 px-4 py-1 border border-dark border-2 alert-secondary rounded">
 						<div class="container-fulid">
 							<div class="row mt-4 mb-3">
 
-<%-- 
+								<%-- 
 								<div class="col-lg-4">
 									<div class="input-group mb-3 border border-secondary">
 										<span class="input-group-text bg-dark text-light"
@@ -130,7 +134,8 @@
 
 
 								<div class="col-lg-2">
-									<button type="submit" class="btn btn-info text-white form-control">Filter</button>
+									<button type="submit"
+										class="btn btn-info text-white form-control">Filter</button>
 								</div>
 							</div>
 						</div>
@@ -191,7 +196,7 @@
 				</div>
 			</div>
 		</div>
-	</main>	
+	</main>
 	<jsp:include page="../Components/Footer.jsp"></jsp:include>
 
 	<script type="text/javascript">

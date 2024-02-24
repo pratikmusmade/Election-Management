@@ -8,16 +8,26 @@
 <head>
 <title>Bootstrap demo</title>
 <jsp:include page="../Components/Header.jsp"></jsp:include>
+
+<style>
+ .img-thumbnail {
+	object-fit: cover;
+	object-position: 0% 0%;
+	width: 160px;
+	height: 160px;
+	width: 160px;
+	border-radius: 50%;http://localhost:8090/Voting_Application/Admin/UpdateStudent.jsp?studentId=1
+}
+</style>
 </head>
 <body>
 	<jsp:include page="../Components/NavBar.jsp"></jsp:include>
 	<jsp:include page="../Components/SideBar.jsp"></jsp:include>
 	<main>
-		<div class="container pt-3">
-			<div class="row">
-				<div class="col-lg-2"></div>
-				<div class="col-lg-8">
-					<h1>Update Student</h1>
+		<div class="container p-3 bg-primary">
+			<div class="row justify-content-center">
+				<div class="col-lg-8 shadow p-2">
+					<h1 class="text-center">Update Student</h1>
 					<%
 					String studentId = request.getParameter("studentId");
 					Connection con = ConnectionProvider.getConnection();
@@ -27,37 +37,68 @@
 					PreparedStatement pstm2;
 					ResultSet rs2;
 
-				while (rs.next()) {
-					System.out.println("Enrollment Number => " +rs.getString("enrolment_number"));
-					
-				%>
-					<form class="row g-3" name="myForm" method="post"
+					while (rs.next()) {
+						System.out.println("Enrollment Number => " + rs.getString("enrolment_number"));
+					%>
+					<form class="row p-2 bg-info" name="myForm" method="post"
 						id="updateStudent" enctype="multipart/form-data">
 
-						<div class="col-md-4">
-							<label for="validationServer01" class="form-label">First
-								name</label> <input type="text" class="form-control"
-								id="validationServer01" name="firstName"
-								value="<%=rs.getString("firstName")%>"
-								onblur="validate(event,'fname-validation')" required /> <small
-								class="text-danger" id="fname-validation"></small>
+						<div class="row m-0 p-2 bg-danger">
+							<div class="col-md-6">
+								<div class="row p-1 bg-info">
+									<div class="col-md-12">
+										<label for="validationServer01" class="form-label">First
+											name</label> <input type="text" class="form-control"
+											id="validationServer01" name="firstName"
+											value="<%=rs.getString("firstName")%>"
+											onblur="validate(event,'fname-validation')" required /> <small
+											class="text-danger" id="fname-validation"></small>
+									</div>
+								</div>
+
+
+								<div class="row bg-success p-1">
+									<div class="col-md-12">
+										<label for="validationServer02" class="form-label">Middle
+											name</label> <input type="text" class="form-control"
+											id="validationServer02" name="middleName"
+											value="<%=rs.getString("middleName")%>"
+											onblur="validate(event,'midName-validation')" required /> <small
+											class="text-danger" id="midName-validation"></small>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-md-6">
+								<div class="row">
+									<div class="col-md-3 p-3"></div>
+									<div class="col-md-6">
+										<label for="validationServer08" class="form-label">
+											Image</label> <img src="<%=rs.getString("student_image")%>"
+											class="img-thumbnail m-0 p-0" alt="...">
+									</div>
+									<div class="col-md-3"></div>
+
+								</div>
+							</div>
 						</div>
-						<div class="col-md-4">
-							<label for="validationServer02" class="form-label">Middle
-								name</label> <input type="text" class="form-control"
-								id="validationServer02" name="middleName"
-								value="<%=rs.getString("middleName")%>"
-								onblur="validate(event,'midName-validation')" required /> <small
-								class="text-danger" id="midName-validation"></small>
+
+						<div class="col-md-6">
+							<div class="row">
+								<label for="validationServer03" class="form-label">Last
+									name</label> <input type="text" class="form-control"
+									id="validationServer03" name="lastName"
+									value="<%=rs.getString("lastName")%>"
+									onblur="validate(event,'lastName-validation')" required /> <small
+									class="text-danger" id="lastName-validation"></small>
+							</div>
 						</div>
 
 						<div class="col-md-4">
-							<label for="validationServer03" class="form-label">Last
-								name</label> <input type="text" class="form-control"
-								id="validationServer03" name="lastName"
-								value="<%=rs.getString("lastName")%>"
-								onblur="validate(event,'lastName-validation')" required /> <small
-								class="text-danger" id="lastName-validation"></small>
+							<label for="validationServer08" class="form-label">
+								Student Image</label> <input type="file" class="form-control"
+								id="validationServer08" name="studentImage" /> <small
+								class="text-danger" id="studImg-validation"></small>
 						</div>
 
 						<div class="col-md-6">
@@ -76,17 +117,17 @@
 								onblur="validate(event,'year-validation')" required>
 								<option selected value="<%=rs.getString("year_id")%>"><%=rs.getString("year_name")%></option>
 								<%
-							System.out.print("select * from acc_year where id <>" + rs.getString("year_id"));
+								System.out.print("select * from acc_year where id <>" + rs.getString("year_id"));
 
-							pstm2 = con.prepareStatement("select * from acc_year where acc_year.id <> " + rs.getString("year_id"));
-							rs2 = pstm2.executeQuery();
-							while (rs2.next()) {
-							%>
+								pstm2 = con.prepareStatement("select * from acc_year where acc_year.id <> " + rs.getString("year_id"));
+								rs2 = pstm2.executeQuery();
+								while (rs2.next()) {
+								%>
 								<option value="<%=rs2.getString("id")%>">
 									<%=rs2.getString("year_name")%></option>
 								<%
-							}
-							%>
+								}
+								%>
 							</select> <small class="text-danger" id="year-validation"></small>
 						</div>
 
@@ -97,14 +138,14 @@
 								onblur="validate(event,'branch-validation')" required>
 								<option selected value="<%=rs.getString("branch_id")%>"><%=rs.getString("branch_name")%></option>
 								<%
-							pstm2 = con.prepareStatement("select * from branch where id <>" + rs.getString("branch_id"));
-							rs2 = pstm2.executeQuery();
-							while (rs2.next()) {
-							%>
+								pstm2 = con.prepareStatement("select * from branch where id <>" + rs.getString("branch_id"));
+								rs2 = pstm2.executeQuery();
+								while (rs2.next()) {
+								%>
 								<option value="<%=rs2.getString("id")%>"><%=rs2.getString("branch_name")%></option>
 								<%
-							}
-							%>
+								}
+								%>
 							</select> <small class="text-danger" id="branch-validation"></small>
 						</div>
 
@@ -121,18 +162,7 @@
 
 
 
-						<div class="col-md-1">
-							<label for="validationServer08" class="form-label"> Image</label>
-							<img src="<%=rs.getString("student_image")%>"
-								class="img-thumbnail m-0 p-0" alt="...">
-						</div>
-						<div class="col-md-4">
-							<label for="validationServer08" class="form-label">
-								Student Image</label> <input type="file" class="form-control"
-								id="validationServer08" name="studentImage"
-								  /> <small
-								class="text-danger" id="studImg-validation"></small>
-						</div>
+
 
 
 
@@ -162,7 +192,7 @@
 								<textarea class="form-control is-valid"
 									placeholder="Leave a comment here" id="floatingTextarea"
 									onblur="validate(event,'address-validation')" name="address">
-									<%= rs.getString("address") %>
+									<%=rs.getString("address")%>
 									</textarea>
 								<small class="text-danger" id="address-validation"></small>
 
@@ -172,6 +202,7 @@
 								<button class="btn btn-primary" type="submit">Update</button>
 							</div>
 						</div>
+
 					</form>
 					<%
 					}
