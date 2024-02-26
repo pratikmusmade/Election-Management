@@ -45,7 +45,7 @@ public class QueriesProvider {
 			" student.firstName , " +
 			" student.middleName , " +
 			" student.lastName , " +
-
+			"student.student_image ," +
 			" election.election_name   , " +
 			" election.election_status , " +
 
@@ -80,6 +80,21 @@ public class QueriesProvider {
 			"inner join branch on branch.id = student.branch_id " +
 			"inner join acc_year on acc_year.id = student.year_id " +
 			"where election_id = ?";
+
+	public static String electionResultQuery = "SELECT c.id AS candidate_id, " +
+		       "c.partyName, " +
+		       "c.partySymbol, " +
+		       "c.slogan, " +
+		      " COUNT(v.vote_to_candidate) AS total_votes, " +
+		       "s.firstName, " +
+		       "s.middleName, " +
+		       "s.lastName, " +
+		       "s.student_image " +
+		"FROM candidate c " +
+		"LEFT JOIN vote v ON c.id = v.vote_to_candidate " +
+		"LEFT JOIN student s ON c.student_id = s.id " +
+		"WHERE c.election_id = ? " +
+		"GROUP BY c.id, c.partyName, c.partySymbol, c.slogan, s.firstName, s.middleName, s.lastName, s.student_image; " ;
 
 
 }

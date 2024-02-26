@@ -5,6 +5,11 @@
 <%@page import="java.sql.Connection"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%
+if (session.getAttribute("user") == null) {
+	response.sendRedirect("AdminLogin.jsp");
+}
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,8 +23,6 @@
 	String electionName = request.getParameter("electionName");
 	String electionStatus = request.getParameter("electionStatus");
 
-	/* 	String studentName = request.getParameter("studentName");
-		String studentId = request.getParameter("studentId"); */
 	System.out.print(electionId + electionName + electionStatus);
 	%>
 	<jsp:include page="../Components/NavBar.jsp"></jsp:include>
@@ -97,6 +100,103 @@
 	</div>
  --%>
 	<main>
+
+		<!-- 	Model Start  -->
+		<div class="modal fade" id="exampleModal" tabindex="-1"
+			aria-labelledby="exampleModalLabel" aria-hidden="true"
+			data-bs-keyboard="false" data-bs-backdrop="static">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+					<div class="modal-body pb-3">
+
+						<div class="container">
+							<div class="row">
+								<div class="col-sm-12 px-3 alert alert-secondary rounded">
+									<form class="row g-3" id="addCandidate" name="myForm">
+										<h1>Candidate List</h1>
+										<input style="display: none;" name="electionId" type="text"
+											value=<%=electionId%>> <input style="display: none;"
+											name="candidateId" type="text" id="candidateId">
+
+										<div class="col-md-6">
+											<div class="input-group mb-3 border border-secondary">
+												<span class="input-group-text bg-dark text-light"
+													id="basic-addon1"> <strong> Election Name</strong>
+												</span> <input readonly="readonly" value="<%=electionName%>"
+													name="electionName" type="text"
+													class="form-control bg-dark text-white"
+													aria-label="Username" aria-describedby="basic-addon1">
+
+											</div>
+										</div>
+
+										<div class="col-md-6">
+											<div class="input-group mb-3 border border-secondary">
+												<span class="input-group-text bg-dark text-light"
+													id="basic-addon1"> <strong> Candidate Name
+												</strong>
+												</span> <input readonly="readonly" name="studentName" type="text"
+													id="cnadidateFullName"
+													class="form-control bg-dark text-white"
+													aria-label="Username" aria-describedby="basic-addon1">
+
+											</div>
+										</div>
+
+										<div class="col-md-6">
+											<label for="exampleFormControlInput1" class="form-label">
+												<strong>Party Name</strong>
+											</label> <input type="text" class="form-control" name="partyName"
+												onblur="validate(event,'partyName-validation')"
+												id="partyName" required> <small class="text-danger"
+												id="partyName-validation"></small>
+										</div>
+
+
+										<div class="col-md-6">
+											<label for="exampleFormControlInput1" class="form-label">
+												<strong>Party Slogan</strong>
+											</label> <input type="text" class="form-control" id="partySlogan"
+												onblur="validate(event,'partSlogan-validation')"
+												name="partySlogan" required> <small
+												class="text-danger" id="partSlogan-validation"></small>
+										</div>
+										<div class="col-md-6">
+											<label for="exampleFormControlInput1" class="form-label">
+												<strong>Party Symbol </strong>
+											</label> <label for="exampleFormControlInput1" class="form-label"
+												id="partySymbolLable"> Party Symbol </label> <input
+												type="file" class="form-control" id="partySymbol"
+												name="partySymbol"> <small
+												class="text-danger" id="partySymbol-validation"></small>
+										</div>
+
+										<div class="col-md-6"></div>
+
+										<div class="col-6">
+											<button type="submit" class="btn btn-primary px-4"
+												id="branch-submit-btn">Add Candidate</button>
+											<button type="button" class="btn btn-danger" id="cancleBtn"
+												style="display: none">Cancel</button>
+										</div>
+									</form>
+
+								</div>
+							</div>
+						</div>
+
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+
 		<div class="container mt-3 alert alert-info rounded">
 			<div class="row">
 				<div class="col-lg-10">
@@ -156,6 +256,7 @@
 								<td><%=rs.getString("slogan")%></td>
 
 								<td><button type="button" class="btn btn-outline-warning"
+										data-bs-toggle="modal" data-bs-target="#exampleModal"
 										onclick="
 									updateCandidate('<%=rs.getString("id")%>','<%=rs.getString("partyName")%>',
 									'<%=rs.getString("slogan")%>','<%=rs.getString("partySymbol")%>',
@@ -251,7 +352,7 @@
 		
 		function updateCandidate(candidateId,partyName,partySlogan,partySymbol,fullName){	 		 
 			submitBtn.className = "btn btn-success"
-			submitBtn.innerHTML = "Update Branch"
+			submitBtn.innerHTML = "Update Candidate"
 			cnadidateFullName.value = fullName
 			partyName1.value = partyName
 			partySlogan1.value = partySlogan
@@ -262,7 +363,6 @@
 			partyLable.classList.add("px-2")
 
 			
-			cancelBtn.style.display = "inline-block"
 			requestUrl = "DB/UpdateCandidateDB.jsp?candidateId=" + candidateId;
 			partyName1.focus()
 			console.log(requestUrl)

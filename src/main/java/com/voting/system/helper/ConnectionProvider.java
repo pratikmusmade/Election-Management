@@ -23,11 +23,12 @@ public class ConnectionProvider {
 		return con;
 	}
 
-	public static boolean studentHasVoted(String studentId) {
-		String query = "select count(voter_id) as count from vote where voter_id=?";
+	public static boolean studentHasVoted(String studentId,String electionId) {
+		String query = "select count(voter_id) as count from vote where voter_id=? and election_id=?";
 		try {
 			PreparedStatement statement = con.prepareStatement(query);
 			statement.setString(1, studentId);
+			statement.setString(2, electionId);
 
 			ResultSet resultSet = statement.executeQuery();
 

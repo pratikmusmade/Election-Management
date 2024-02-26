@@ -39,3 +39,8 @@
 .sidebar-link[aria-expanded=false] .right-icon{
 	transition:all ease-in-out 0.25s;
 }
+
+.user-main{
+	margin-top: var(--topNavbarHeight) !important;
+}
+

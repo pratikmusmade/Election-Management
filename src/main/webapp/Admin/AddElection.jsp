@@ -4,6 +4,11 @@
 <%@page import="java.sql.Connection"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%
+if (session.getAttribute("user") == null) {
+	response.sendRedirect("AdminLogin.jsp");
+}
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,9 +65,10 @@
 
 		<div class="container mt-5">
 			<div class="row">
-				<div class="col-lg-2"></div>
-				<div class="col-lg-8">
-					<h2>Branch List</h2>
+
+				<div class="col-lg-1"></div>
+				<div class="col-lg-10">
+					<h2>Election List</h2>
 					<table class="table table-bordered table-info table-striped">
 						<thead>
 							<tr class="table-dark">
@@ -87,14 +93,44 @@
 								<td><%=rs.getString("election_name")%></td>
 								<td><%=rs.getString("election_status")%></td>
 
-								<td class="d-flex justify-content-center"><button
-										type="button" class="btn btn-warning"
+
+								<td class="d-flex justify-content-center">
+									<%
+									if (!rs.getString("election_status").equals("Decom")) {
+									%>
+
+									<button type="button" class="btn btn-warning"
 										onclick="updateElection(<%=rs.getString("id")%>,'<%=rs.getString("election_name")%>')">Update</button>
 									&nbsp &nbsp
+
 									<button type="button" class="btn btn-danger"
 										onclick="deleteElection(<%=rs.getString("id")%>,'<%=rs.getString("election_name")%> ')"
 										id="deleteElection">Delete</button> &nbsp &nbsp
 
+
+									<form action="CandidateList.jsp" method="post"
+										style="display: <%=((!rs.getString("election_status").equals("In-Active")) ? "inline-block" : "none")%>;">
+										<input style="display: none" type="text" name="electionId"
+											value="<%=rs.getString("id")%>"> <input
+											style="display: none"
+											value="<%=rs.getString("election_name")%>" type="text"
+											name="electionName">
+										<button type="submit" class="btn btn-success">Add
+											Candidate</button>
+									</form>  &nbsp &nbsp
+
+
+									<form action="DB/DecommissionElection.jsp" method="post"
+										style="display:<%=((!rs.getString("election_status").equals("In-Active")) ? "inline-block" : "none")%>;">
+										<input style="display: none" type="text" name="electionId"
+											value="<%=rs.getString("id")%>"><input
+											style="display: none"
+											value="<%=rs.getString("election_name")%>" type="text"
+											name="electionName">
+										<button type="submit" class="btn btn-dark">Decommission</button>
+									</form> <%
+ }
+ %> &nbsp &nbsp
 									<form action="AddCandidate.jsp" method="post">
 										<input style="display: none" type="text" name="electionId"
 											value="<%=rs.getString("id")%>"> <input
@@ -105,23 +141,13 @@
 											name="electionStatus">
 										<button type="submit" class="btn btn-info">View
 											Candidate</button>
-									</form> &nbsp &nbsp
-									<form action="CandidateList.jsp" method="post"
-										style="display: <%=((!rs.getString("election_status").equals("In-Active")) ? "inline-block" : "none")%>;">
-										<input style="display: none" type="text" name="electionId"
-											value="<%=rs.getString("id")%>"> <input
-											style="display: none"
-											value="<%=rs.getString("election_name")%>" type="text"
-											name="electionName">
-										<button type="submit" class="btn btn-success">Add
-											Candidate</button>
-									</form></td>
-							</tr>
-
-							<%
-							i++;
-							}
-							%>
+									</form>
+								</td>
+								<%
+								i++;
+								}
+								%>
+							
 						</tbody>
 					</table>
 				</div>
@@ -231,9 +257,6 @@
 		inputElection.focus()
 	}
 	
-	
-	
-
 
     </script>
 
