@@ -19,17 +19,20 @@ if(session.getAttribute("user") == null){
 	<main>
 
 
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-2"></div>
-			<div class="col-sm-8 mt-5 p-2">
-				<form action="DB/AddBranchDB.jsp" id="addClass">
-					<h1>Add Year</h1>
-					<div class="mb-3">
-						<label for="exampleInput" class="form-label">Enter Year</label> <input
-							type="text" class="form-control" id="exampleInput"
-							aria-describedby="textHelp" name="yearName" required/>
-					</div>
+		<div class="container">
+			<div class="row justify-content-center">
+
+				<div
+					class="col-sm-8 mt-3 p-2 pt-0 border border-dark border-2 rounded alert-secondary">
+					<form class="p-3 border-2  rounded" action="DB/AddBranchDB.jsp"
+						id="addClass">
+						
+						<div class="mb-3">
+							<label for="exampleInput"
+								class="form-label w-100 h1 bg-dark text-white p-2 rounded-3">Enter
+								Year</label> <input type="text" class="form-control" id="exampleInput"
+								aria-describedby="textHelp" name="yearName" required />
+						</div>
 						<button type="submit" class="btn btn-primary px-4"
 							id="year-submit-btn">Submit</button>
 						<button type="button" class="btn btn-danger" id="cancleBtn"
@@ -40,14 +43,14 @@ if(session.getAttribute("user") == null){
 			</div>
 		</div>
 
-		<div class="container mt-5">
-			<div class="row">
-				<div class="col-lg-3"></div>
-				<div class="col-lg-6">
+		<div class="container mt-4">
+			<div class="row justify-content-center">
+
+				<div class="col-lg-8 shadow">
 					<h2>Year List</h2>
-					<table class="table table-bordered">
+					<table class="table table-bordered table-info table-striped">
 						<thead>
-							<tr>
+							<tr class="table-dark">
 								<th scope="col">Sr .</th>
 								<th scope="col">Class</th>
 								<th scope="col" style="vertical-align: bottom;">Operation</th>
@@ -64,10 +67,10 @@ if(session.getAttribute("user") == null){
 							<tr>
 								<th scope="row"><%=rs.getString("id")%></th>
 								<td><%=rs.getString("year_name")%></td>
-								<td><button type="button" class="btn btn-outline-warning"
+								<td><button type="button" class="btn btn-warning"
 										onclick="updateYear(<%=rs.getString("id")%>,'<%=rs.getString("year_name")%>')">Update</button>
 									&nbsp &nbsp
-									<button type="button" class="btn btn-outline-danger"
+									<button type="button" class="btn btn-danger"
 										onclick="deleteYear(<%=rs.getString("id")%>,'<%=rs.getString("year_name")%>')"
 										id="deleteBranch">Delete</button></td>
 							</tr>

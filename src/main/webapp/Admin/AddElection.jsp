@@ -65,6 +65,7 @@ if (session.getAttribute("user") == null) {
 
 		<div class="container mt-5">
 			<div class="row">
+
 				<div class="col-lg-1"></div>
 				<div class="col-lg-10">
 					<h2>Election List</h2>
@@ -92,21 +93,20 @@ if (session.getAttribute("user") == null) {
 								<td><%=rs.getString("election_name")%></td>
 								<td><%=rs.getString("election_status")%></td>
 
+
 								<td class="d-flex justify-content-center">
 									<%
-									if(! rs.getString("election_status").equals("Decom")){
-				
-									
+									if (!rs.getString("election_status").equals("Decom")) {
 									%>
-								
-								<button
-										type="button" class="btn btn-warning"
+
+									<button type="button" class="btn btn-warning"
 										onclick="updateElection(<%=rs.getString("id")%>,'<%=rs.getString("election_name")%>')">Update</button>
 									&nbsp &nbsp
-									
+
 									<button type="button" class="btn btn-danger"
 										onclick="deleteElection(<%=rs.getString("id")%>,'<%=rs.getString("election_name")%> ')"
 										id="deleteElection">Delete</button> &nbsp &nbsp
+
 
 									<form action="CandidateList.jsp" method="post"
 										style="display: <%=((!rs.getString("election_status").equals("In-Active")) ? "inline-block" : "none")%>;">
@@ -117,8 +117,7 @@ if (session.getAttribute("user") == null) {
 											name="electionName">
 										<button type="submit" class="btn btn-success">Add
 											Candidate</button>
-									</form> &nbsp &nbsp
-
+									</form>  &nbsp &nbsp
 
 
 									<form action="DB/DecommissionElection.jsp" method="post"
@@ -129,11 +128,9 @@ if (session.getAttribute("user") == null) {
 											value="<%=rs.getString("election_name")%>" type="text"
 											name="electionName">
 										<button type="submit" class="btn btn-dark">Decommission</button>
-									</form>
-									<%
-									}
-									%>
-									&nbsp &nbsp
+									</form> <%
+ }
+ %> &nbsp &nbsp
 									<form action="AddCandidate.jsp" method="post">
 										<input style="display: none" type="text" name="electionId"
 											value="<%=rs.getString("id")%>"> <input
@@ -144,14 +141,13 @@ if (session.getAttribute("user") == null) {
 											name="electionStatus">
 										<button type="submit" class="btn btn-info">View
 											Candidate</button>
-									</form> 
-									</td>
-							</tr>
-
-							<%
-							i++;
-							}
-							%>
+									</form>
+								</td>
+								<%
+								i++;
+								}
+								%>
+							
 						</tbody>
 					</table>
 				</div>
@@ -261,9 +257,6 @@ if (session.getAttribute("user") == null) {
 		inputElection.focus()
 	}
 	
-	
-	
-
 
     </script>
 

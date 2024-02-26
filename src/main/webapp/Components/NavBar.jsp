@@ -14,9 +14,11 @@
 
 		<!-- 		offcanvas tigger    -->
 
+
 		<a class="navbar-brand text-uppercase text-dark" href="#"><strong>
 				Navbar </strong></a>
 		<!-- 	
+>>>>>>> 961e93fcf91eb15cb0403243d5f0991128e1eb66
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
 			data-bs-target="#navbarNavAltMarkup"
 			aria-controls="navbarNavAltMarkup" aria-expanded="false"
