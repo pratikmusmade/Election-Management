@@ -14,74 +14,79 @@
 	<jsp:include page="../Components/NavBar.jsp"></jsp:include>
 	<jsp:include page="../Components/SideBar.jsp"></jsp:include>
 	<main>
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-2"></div>
-			<div class="col-sm-8 mt-5 p-2">
-				<form action="DB/AddBranchDB.jsp"  id="addBranch" name="myForm" >
-					<h1>Add Branch</h1>
-					<div class="mb-3">
-						<label for="exampleInput" class="form-label">Enter Branch</label>
-						<input type="text" class="form-control" id="exampleInput"
-							aria-describedby="textHelp" name="branchName" required />
-							
-					</div>
+		<div class="container">
+			<div class="row justify-content-center">
 
-					<button type="submit" class="btn btn-primary px-4"
-						id="branch-submit-btn">Add Branch</button>
-					<button type="button" class="btn btn-danger" id="cancleBtn"
-						style="display: none">Cancel</button>
-				</form>
+				<div
+					class="col-sm-8 mt-3 p-2 pt-0 border border-dark border-2 rounded alert-secondary">
+					<form class="p-3 border-2  rounded" action="DB/AddBranchDB.jsp"
+						id="addBranch" name="myForm">
+						<h1></h1>
+						<div class="mb-3">
+							<label for="exampleInput"
+								class="form-label w-100 h1 bg-dark text-white p-2 rounded-3">Enter
+								Branch</label> <input type="text" class="form-control mt-3"
+								id="exampleInput" aria-describedby="textHelp" name="branchName"
+								required />
+
+						</div>
+
+						<button type="submit" class="btn btn-primary px-4"
+							id="branch-submit-btn">Add Branch</button>
+						<button type="button" class="btn btn-danger" id="cancleBtn"
+							style="display: none">Cancel</button>
+					</form>
+				</div>
 			</div>
 		</div>
-	</div>
 
-	<div class="container mt-5">
-		<div class="row">
-			<div class="col-lg-3"></div>
-			<div class="col-lg-6">
-				<h2>Branch List</h2>
+		<div class="container mt-4">
+			<div class="row justify-content-center">
 
 
-				<table class="table  table-bordered">
-					<thead>
-						<tr>
-							<th scope="col">Sr .</th>
-							<th scope="col">Branch</th>
-							<th scope="col">Operation</th>
-							<!-- 							<th scope="col"></th>
+				<div class="col-lg-8 shadow">
+					<h2>Branch List</h2>
+
+
+					<table class="table  table-bordered table-info table-striped">
+						<thead>
+							<tr class="table-dark">
+								<th scope="col">Sr .</th>
+								<th scope="col">Branch</th>
+								<th scope="col">Operation</th>
+								<!-- 							<th scope="col"></th>
  -->
-						</tr>
-					</thead>
-					<tbody>
-						<%
-						Connection con = ConnectionProvider.getConnection();
-						PreparedStatement stmt = con.prepareStatement("select * from branch");
-						ResultSet rs = stmt.executeQuery();
-						while (rs.next()) {
-						%>
-						<tr>
-							<th scope="row"><%=rs.getString("id")%></th>
-							<td><%=rs.getString("branch_name")%></td>
-							<td><button type="button" class="btn btn-outline-warning"
-									onclick="updateBranch(<%=rs.getString("id")%>,'<%=rs.getString("branch_name")%>')">Update</button>
-								&nbsp &nbsp
-								<button type="button" class="btn btn-outline-danger"
-									onclick="delteBranch(<%=rs.getString("id")%>,'<%=rs.getString("branch_name") %> ')"
-									id="deleteBranch">Delete</button></td>
-						</tr>
+							</tr>
+						</thead>
+						<tbody>
+							<%
+							Connection con = ConnectionProvider.getConnection();
+							PreparedStatement stmt = con.prepareStatement("select * from branch");
+							ResultSet rs = stmt.executeQuery();
+							while (rs.next()) {
+							%>
+							<tr>
+								<th scope="row"><%=rs.getString("id")%></th>
+								<td><%=rs.getString("branch_name")%></td>
+								<td><button type="button" class="btn btn-warning"
+										onclick="updateBranch(<%=rs.getString("id")%>,'<%=rs.getString("branch_name")%>')">Update</button>
+									&nbsp &nbsp
+									<button type="button" class="btn btn-danger"
+										onclick="delteBranch(<%=rs.getString("id")%>,'<%=rs.getString("branch_name")%> ')"
+										id="deleteBranch">Delete</button></td>
+							</tr>
 
-						<%
-						}
-						%>
-					</tbody>
-				</table>
+							<%
+							}
+							%>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
-	</div>
 
-	<jsp:include page="../Components/Footer.jsp"></jsp:include>
-</main>
+		<jsp:include page="../Components/Footer.jsp"></jsp:include>
+	</main>
 
 	<script type="text/javascript">
 	

@@ -22,7 +22,7 @@
 		<div class="container pt-3">
 			<div class="row justify-content-center">
 
-				<div class="col-lg-8 shadow p-2">
+				<div class="col-lg-8 shadow p-2 alert-secondary">
 					<h1 class="text-center">Add Student</h1>
 
 					<form class="row p-2" name="myForm" method="post" id="addWaredn"
@@ -150,6 +150,12 @@
 										name="address" onblur="validate(event,'address-validation')"></textarea>
 								</div>
 								<small class="text-danger" id="address-validation"></small>
+							</div>
+						</div>
+
+						<div class="row m-1 pt-2">
+							<div class="col-12">
+								<button class="btn btn-primary" type="submit">Update</button>
 							</div>
 						</div>
 					</form>
