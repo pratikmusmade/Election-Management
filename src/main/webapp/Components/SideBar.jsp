@@ -135,6 +135,43 @@
           </div>
         </li>
   
+   <li class="mt-2">
+          <a
+            class="aav-link nav-link d-flex sidebar-link"
+            data-bs-toggle="collapse"
+            href="#resultMenu"
+            role="button"
+            aria-expanded="false"
+            aria-controls="electionMenu"
+          >
+            <span class="me-2"><i class="bi bi-flag-fill"></i></span>
+            <span>Result</span>
+            <span class="ms-auto right-icon">
+              <i class="bi bi-chevron-down"></i
+            ></span>
+          </a>
+          <div class="collapse" id="resultMenu">
+            <ul class="navbar-nav">
+              <li>
+                <a href="ElectionResult.jsp" class="nav-link px-4">
+                  <span class="me-2"><i class="bi bi-plus-circle-fill"></i></span>
+                  <span>Election Result</span>
+                </a>
+              </li>
+              
+             <!--  <li>
+                <a href="AddElection.jsp" class="nav-link px-4">
+                  <span class="me-2"><i class="bi bi-list-ul"></i></span>
+                  <span>Election List</span>
+                </a>
+              </li> -->
+              
+            </ul>
+          </div>
+        </li>
+  
+  
+  
       </ul>
     </nav>
   </div>

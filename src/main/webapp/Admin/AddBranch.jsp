@@ -1,3 +1,8 @@
+<%
+if(session.getAttribute("user") == null){
+	  response.sendRedirect("AdminLogin.jsp"); 
+}
+%>
 <%@page import="com.voting.system.helper.ConnectionProvider"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>

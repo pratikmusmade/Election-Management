@@ -22,7 +22,7 @@ try {
 	out.print(pstm.executeUpdate()+"Your Vote is Recorded !!");
 } catch (SQLIntegrityConstraintViolationException e) {
 	e.printStackTrace();
-	out.print(0 + "You Have Already Voted this Candidate !!");
+	out.print(0 + "You Have Already Voted for this Election !!");
 } catch(Exception e){
 	e.printStackTrace();
 	out.print(0 + "Internal Server Error !!");

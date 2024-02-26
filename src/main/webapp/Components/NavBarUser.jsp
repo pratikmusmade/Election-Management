@@ -54,7 +54,7 @@
 				if(res.isConfirmed){
 					      $.ajax({
 					        type: "POST",
-					        url: "DB/LoginDB.jsp",
+					        url: "DB/UserLoginDB.jsp",
 					        data:{logoutRequest:1},
 					        success: function (response) { 
 					        	console.log(response.trim())

@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%
+if(session.getAttribute("user") == null){
+	  response.sendRedirect("AdminLogin.jsp"); 
+}
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +17,7 @@
 <body>
 	<jsp:include page="../Components/SideBar.jsp"></jsp:include>
 	<jsp:include page="../Components/NavBar.jsp"></jsp:include>
-	
+
 	<main>
 		<div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
 			<div class="card-header">Header</div>
