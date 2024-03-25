@@ -71,7 +71,7 @@ $(document).ready(function () {
               text: "Click OK to continue!",
               icon: "success",
             }).then((res) => {
-              window.location = "AdminDashBoard.jsp";
+              window.location = "StudentList.jsp";
             });
           } else {
         	  alertBox.innerHTML = alerBoxCode

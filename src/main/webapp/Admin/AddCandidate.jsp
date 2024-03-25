@@ -230,8 +230,7 @@ if (session.getAttribute("user") == null) {
 								<th scope="col">Party Name</th>
 								<th scope="col">Party Symbol</th>
 								<th scope="col">Party Slogan</th>
-								<th scope="col">Election</th>
-
+								<th scope="col">Operation</th>
 							</tr>
 						</thead>
 						<tbody class="alert alert-secondary ">
@@ -255,15 +254,12 @@ if (session.getAttribute("user") == null) {
 									style="height: 50px; width: 50px; border-radius: 100%"></td>
 								<td><%=rs.getString("slogan")%></td>
 
-								<td><button type="button" class="btn btn-outline-warning"
+								<td><button type="button" class="btn btn-warning"
 										data-bs-toggle="modal" data-bs-target="#exampleModal"
 										onclick="
 									updateCandidate('<%=rs.getString("id")%>','<%=rs.getString("partyName")%>',
 									'<%=rs.getString("slogan")%>','<%=rs.getString("partySymbol")%>',
 									'<%=studentFullName%>')">Update</button>
-									&nbsp &nbsp
-									<button type="button" class="btn btn-outline-danger"
-										id="deleteBranch">Delete</button></td>
 							</tr>
 
 							<%

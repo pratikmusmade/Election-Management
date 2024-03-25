@@ -6,7 +6,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%
 String path = "C://Users//prati//eclipse-workspace//Voting_Application//src//main//webapp//assets//images";
-String query = "insert into student(firstName, middleName, lastName, enrolment_number, address, email, pass, student_image, phone_number, branch_id, year_id) values (?,?,?,?,?,?,?,?,?,?,?)";
+String query = "insert into student(firstName, middleName, lastName, enrolment_number, address, email, pass, student_image, phone_number, branch_id, year_id,gender) values (?,?,?,?,?,?,?,?,?,?,?,?)";
 MultipartRequest m = new MultipartRequest(request, path, 1024 * 1024 * 1024);
 Connection con = ConnectionProvider.getConnection();
 
@@ -21,8 +21,10 @@ String address = m.getParameter("address");
 String phoneNumber = m.getParameter("phoneNumber");
 String enrollNo = m.getParameter("enrollmentNumber");
 String password = m.getParameter("password");
+String gender = m.getParameter("gender");
 
-System.out.println(password);
+
+System.out.println(gender);
 PreparedStatement pstmt = con.prepareStatement(query);
 pstmt.setString(1, firstName);
 pstmt.setString(2, middleName);
@@ -35,6 +37,7 @@ pstmt.setString(8, student_img);
 pstmt.setString(9, phoneNumber);
 pstmt.setString(10, branchId);
 pstmt.setString(11, yearId);
+pstmt.setString(12, gender);
 
 out.print(pstmt.executeUpdate());
 %>

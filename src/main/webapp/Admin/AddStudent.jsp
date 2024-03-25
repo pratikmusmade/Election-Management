@@ -5,8 +5,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%
-if(session.getAttribute("user") == null){
-	  response.sendRedirect("AdminLogin.jsp"); 
+if (session.getAttribute("user") == null) {
+	response.sendRedirect("AdminLogin.jsp");
 }
 %>
 <!DOCTYPE html>
@@ -60,7 +60,7 @@ if(session.getAttribute("user") == null){
 						<div class="row m-0 p-2">
 							<div class="col-md-6">
 								<label for="validationServer04" class="form-label">Enrollment
-									Number</label> <input type="number" class="form-control"
+									Number</label> <input type="text" class="form-control"
 									id="validationServer04" name="enrollmentNumber"
 									onblur="validate(event,'enrollmentNumber-validation')" required />
 								<small class="text-danger" id="enrollmentNumber-validation"></small>
@@ -106,7 +106,7 @@ if(session.getAttribute("user") == null){
 
 
 						<div class="row m-0 p-2">
-							<div class="col-md-6">
+							<div class="col-md-4">
 								<label for="validationServer07" class="form-label">Phone
 									Number</label> <input type="number" class="form-control "
 									id="validationServer07" name="phoneNumber"
@@ -115,12 +115,27 @@ if(session.getAttribute("user") == null){
 							</div>
 
 
-							<div class="col-md-6">
+							<div class="col-md-4">
 								<label for="validationServer08" class="form-label">Student
 									Image</label> <input type="file" class="form-control"
 									id="validationServer08" name="studentImage"
 									onblur="validate(event,'studImg-validation')" required /> <small
 									class="text-danger" id="studImg-validation"></small>
+							</div>
+
+							<div class="col-md-4">
+								<label for="validationServer08" class="form-label">Gender</label> <select class="form-select" id="validationServer06"
+									aria-describedby="validationServer06Feedback" name="gender"
+									onblur="validate(event,'branch-validation')" required>
+									<option selected="selected" disabled value="">Select Gender</option>
+									
+									<option value="Male">Male</option>
+									<option  value="Female">Female</option>
+									<option  value="Other">Other</option>
+									
+									
+									</select>
+									
 							</div>
 						</div>
 
@@ -160,7 +175,8 @@ if(session.getAttribute("user") == null){
 
 						<div class="row m-1 pt-2">
 							<div class="col-12">
-								<button class="btn btn-primary" type="submit">Update</button>
+								<button class="btn btn-primary" type="submit">Add
+									Student</button>
 							</div>
 						</div>
 					</form>

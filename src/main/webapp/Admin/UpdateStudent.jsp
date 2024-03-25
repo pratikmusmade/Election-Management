@@ -4,8 +4,8 @@
 	pageEncoding="ISO-8859-1"%>
 <%@page import="java.sql.*"%>
 <%
-if(session.getAttribute("user") == null){
-	  response.sendRedirect("AdminLogin.jsp"); 
+if (session.getAttribute("user") == null) {
+	response.sendRedirect("AdminLogin.jsp");
 }
 %>
 <!DOCTYPE html>
@@ -39,9 +39,11 @@ if(session.getAttribute("user") == null){
 					Connection con = ConnectionProvider.getConnection();
 					String query = QueriesProvider.queryForStudentInfoWithBranchAndYearId + "where student.id = " + studentId;
 					PreparedStatement pstm = con.prepareStatement(query);
+					System.out.println(query);
 					ResultSet rs = pstm.executeQuery();
 					PreparedStatement pstm2;
 					ResultSet rs2;
+					String[] genderArr = {"Male","Female","Other"};
 
 					while (rs.next()) {
 						System.out.println("Enrollment Number => " + rs.getString("enrolment_number"));
@@ -59,7 +61,7 @@ if(session.getAttribute("user") == null){
 											value="<%=rs.getString("firstName")%>"
 											onblur="validate(event,'fname-validation')" required /> <small
 											class="text-danger" id="fname-validation"></small>
-											<div class="valid-feedback">Looks good!</div>
+										<div class="valid-feedback">Looks good!</div>
 									</div>
 								</div>
 
@@ -117,7 +119,7 @@ if(session.getAttribute("user") == null){
 						</div>
 
 						<div class="row m-0 p-1">
-							<div class="col-md-6">
+							<div class="col-md-4">
 								<div class="row">
 									<div class="col-md-12">
 										<label for="validationServer04" class="form-label">Enrollment
@@ -131,7 +133,7 @@ if(session.getAttribute("user") == null){
 								</div>
 							</div>
 
-							<div class="col-md-2">
+							<div class="col-md-4">
 								<label for="validationServer05" class="form-label">Year</label>
 								<select class="form-select " id="validationServer05"
 									aria-describedby="validationServer05Feedback" name="yearId"
@@ -173,7 +175,7 @@ if(session.getAttribute("user") == null){
 
 
 						<div class="row p-1 m-0">
-							<div class="col-md-6">
+							<div class="col-md-4">
 								<label for="validationServer07" class="form-label">Phone
 									Number</label> <input type="number" class="form-control "
 									id="validationServer07" name="phoneNumber"
@@ -182,7 +184,7 @@ if(session.getAttribute("user") == null){
 									class="text-danger" id="phone-validation"></small>
 							</div>
 
-							<div class="col-md-6">
+							<div class="col-md-4">
 								<label for="validationEmail" class="form-label">Email</label> <input
 									type="email" class="form-control" id="validationEmail"
 									aria-describedby="validationServer03Feedback" name="email"
@@ -190,13 +192,32 @@ if(session.getAttribute("user") == null){
 									onblur="validate(event,'email-validation')" required /> <small
 									class="text-danger" id="email-validation"></small>
 							</div>
+							<div class="col-md-4">
+								<label for="validationServer06" class="form-label">Gender</label>
+								<select class="form-select " id="validationServer06"
+									aria-describedby="validationServer06Feedback" name="gender"
+									onblur="validate(event,'branch-validation')" required>
+									<option selected value="<%=rs.getString("gender")%>"><%=rs.getString("gender")%></option>
+									<%
+										for(int i=0;i<genderArr.length;i++){
+											if(!genderArr[i].equals(rs.getString("gender"))){
+												%>
+												<option value="<%=genderArr[i]%>"><%=genderArr[i]%></option>
+												
+												<% 
+											}
+										}
+									%>
+
+								</select>
+							</div>
 						</div>
 
 
 						<div class="row m-0 p-1">
 							<div class="col-md-6">
 								<label for="validationPassword" class="form-label">Password</label>
-								<input type="password" class="form-control is-invalid"
+								<input type="password" class="form-control"
 									id="validationPassword" value="<%=rs.getString("pass")%>"
 									aria-describedby="validationServer03Feedback" name="password"
 									onblur="validate(event,'password-validation')" required /> <small
@@ -207,7 +228,7 @@ if(session.getAttribute("user") == null){
 								<label for="floatingTextarea" class="form-label">Enter
 									Address</label>
 								<div class="form-floating">
-									<textarea class="form-control is-valid"
+									<textarea class="form-control"
 										placeholder="Leave a comment here" id="floatingTextarea"
 										onblur="validate(event,'address-validation')" name="address">
 									<%=rs.getString("address")%>
@@ -253,7 +274,7 @@ if(session.getAttribute("user") == null){
 				 if (response.trim() === "1") {
 					 
 				 Swal.fire({
-				 title : "Student Added Successfully",
+				 title : "Student Updated Successfully",
 				 text : "Click ok to continue !",
 				 icon : "success"
 				 }).then(()=>{

@@ -5,6 +5,11 @@
 <%@page import="java.sql.Connection"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%
+if(session.getAttribute("user") == null){
+	  response.sendRedirect("AdminLogin.jsp"); 
+}
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,19 +18,20 @@
 <jsp:include page="../Components/Header.jsp"></jsp:include>
 </head>
 <body>
-<%
-String electionId = request.getParameter("electionId");
-String electionName = "";
-String electionStatus = "";
-PreparedStatement stmt = ConnectionProvider.getConnection().prepareStatement("select * from election where id=?");
-stmt.setString(1, electionId);
-ResultSet rs = stmt.executeQuery();
-while(rs.next()){
-	electionName = rs.getString("election_name");
-	electionStatus = rs.getString("election_status");
+	<%
+	String WinnerName = "";
+	String WinnerImage = "";
+	String electionId = request.getParameter("electionId");
+	String electionName = "";
+	String electionStatus = "";
+	PreparedStatement stmt = ConnectionProvider.getConnection().prepareStatement("select * from election where id=?");
+	stmt.setString(1, electionId);
+	ResultSet rs = stmt.executeQuery();
+	while (rs.next()) {
+		electionName = rs.getString("election_name");
+		electionStatus = rs.getString("election_status");
 	}
-
-%>
+	%>
 	<jsp:include page="../Components/NavBar.jsp"></jsp:include>
 	<jsp:include page="../Components/SideBar.jsp"></jsp:include>
 	<main>
@@ -33,21 +39,19 @@ while(rs.next()){
 			<div class="row">
 				<div class="col-lg-10">
 
-					<h2>
+					<h2 class="mt-2">
 						Candidates for <span class="badge bg-danger"><%=electionName%></span>
 						Election
 					</h2>
 				</div>
 
+
+
 				<div class="col-lg-2">
 
-					<div
-						class="d-flex align-items-center justify-content-center alert alert-danger p-0 rounded-pill">
-						<h5 class="mt-1">Status</h5>
-						<h6>
-							<span class="badge bg-success flex-fill mt-2 ms-2 px-3"><%=electionStatus%></span>
-						</h6>
-					</div>
+					<button id="showResultBtn" class="btn btn-success mt-2 text-blod">
+						<strong> Show Winner</strong>
+					</button>
 
 				</div>
 			</div>
@@ -64,10 +68,10 @@ while(rs.next()){
 								<th scope="col">Party Symbol</th>
 								<th scope="col">Party Slogan</th>
 								<th scope="col">Votes</th>
-
+								<th scope="col">Operation</th>
 							</tr>
 						</thead>
-						<tbody class="alert alert-secondary ">
+						<tbody class="alert alert-secondary">
 							<%
 							Connection con = ConnectionProvider.getConnection();
 							stmt = con.prepareStatement(QueriesProvider.electionResultQuery);
@@ -75,10 +79,15 @@ while(rs.next()){
 
 							rs = stmt.executeQuery();
 							int ind = 1;
-							
+							int maxVote = 0;
 							while (rs.next()) {
 								String studentFullName = rs.getString("firstName") + " " + rs.getString("middleName") + " "
 								+ rs.getString("lastName");
+								if (maxVote < rs.getInt("total_votes")) {
+									WinnerName = studentFullName;
+									WinnerImage = rs.getString("student_image");
+									maxVote = rs.getInt("total_votes");
+								}
 							%>
 							<tr>
 								<th scope="row"><%=ind%></th>
@@ -92,9 +101,24 @@ while(rs.next()){
 									style="height: 50px; width: 50px; border-radius: 100%"></td>
 								<td><%=rs.getString("slogan")%></td>
 
+								<td><%=rs.getInt("total_votes")%></td>
 								<td>
-								<%=rs.getInt("total_votes") %>
+									<form action="UserChart.jsp">
+										<input value="<%=rs.getString("candidate_id")%>"
+											name="candidateId" class="d-none"> <input
+											value="<%=rs.getString("c.election_id")%>" name="electionId"
+											class="d-none"> <input value="<%=studentFullName%>"
+											name="candidateFullName" class="d-none"> <input
+											value="<%=rs.getString("total_votes")%>" name="totalVotes"
+											class="d-none"> <input type="submit"
+											class="btn btn-info" value="view">
+
+
+									</form>
 								</td>
+								<%-- <td><a
+									href="UserChart.jsp?candidateId=<%=rs.getString("candidate_id")%>&electionId=<%=rs.getString("c.election_id")%>&candidateFullName=<%=studentFullName%>"
+									class="btn btn-info ">View</a></td> --%>
 							</tr>
 
 							<%
@@ -104,11 +128,26 @@ while(rs.next()){
 						</tbody>
 					</table>
 				</div>
-
+				</h1>
 			</div>
 		</div>
 	</main>
 	<jsp:include page="../Components/Footer.jsp"></jsp:include>
+	<script type="text/javascript">
+	
+	const btn = document.querySelector("#showResultBtn")
+	btn.addEventListener('click', function () {
+		console.log("clicked")
+  Swal.fire({
+    title: "Winner !",
+    text: '<%=WinnerName%>',
+    imageUrl: '<%=WinnerImage%>',
+				imageWidth : 400,
+				imageHeight : 200,
+				imageAlt : "Custom image"
+			});
+		})
+	</script>
 
 </body>
 </html>

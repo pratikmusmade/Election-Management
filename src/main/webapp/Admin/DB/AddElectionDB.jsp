@@ -1,3 +1,4 @@
+<%@page import="java.sql.ResultSet"%>
 <%@page import="com.voting.system.helper.ConnectionProvider"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.Connection"%>
@@ -15,10 +16,13 @@ String query = "insert into election(election_name,election_status) values(?,?)"
 PreparedStatement pstm = con.prepareStatement(query);
 pstm.setString(1, electionName);
 pstm.setString(2, electionStatus);
+
 try {
-	out.print(pstm.executeUpdate()+" Added");
+	out.print(pstm.executeUpdate() + " Added");
+
 } catch (Exception e) {
 	e.printStackTrace();
 	out.print(0);
 }
+
 %>

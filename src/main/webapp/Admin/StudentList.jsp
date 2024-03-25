@@ -5,8 +5,8 @@
 	pageEncoding="ISO-8859-1"%>
 
 <%
-if(session.getAttribute("user") == null){
-	  response.sendRedirect("AdminLogin.jsp"); 
+if (session.getAttribute("user") == null) {
+	response.sendRedirect("AdminLogin.jsp");
 }
 %>
 <!DOCTYPE html>
@@ -19,13 +19,15 @@ if(session.getAttribute("user") == null){
 </head>
 <body>
 	<jsp:include page="../Components/NavBar.jsp"></jsp:include>
-	<%
+	<jsp:include page="../Components/SideBar.jsp"></jsp:include>
 
-		Connection con = ConnectionProvider.getConnection();
-		PreparedStatement pstm;
-		ResultSet rs;
-		String query = QueriesProvider.queryForStudentInfo + "order by id";
-		%>
+	<%
+	Connection con = ConnectionProvider.getConnection();
+	PreparedStatement pstm;
+	ResultSet rs;
+	String query = QueriesProvider.queryForStudentInfo + "order by id";
+	%>
+	<main>
 		<div class="container">
 			<div class="row ">
 				<h1 class="text-center alert alert-danger px-4 py-1 m-2 rounded">Student
@@ -163,7 +165,6 @@ if(session.getAttribute("user") == null){
 								<th scope="col">Branch</th>
 								<th scope="col">Year</th>
 								<th scope="col">Update</th>
-								<th scope="col">Delete</th>
 							</tr>
 						</thead>
 						<tbody id="listContainer">
@@ -183,13 +184,11 @@ if(session.getAttribute("user") == null){
 								<td><%=rs.getString("email")%></td>
 								<td><%=rs.getString("branch_name")%></td>
 								<td><%=rs.getString("year_name")%></td>
-								<td><a type="button" class="btn btn-outline-warning"
+								<td><a type="button" class="btn btn-warning"
 									href="UpdateStudent.jsp?studentId=<%=rs.getString("id")%>">Update</a>
 
 								</td>
-								<td><a type="button" class="btn btn-outline-danger"
-									href="DB/DeleteStudentDB.jsp?studentId=<%=rs.getString("id")%>">Delete</a>
-								</td>
+								
 							</tr>
 							<%
 							}
@@ -230,6 +229,10 @@ if(session.getAttribute("user") == null){
 																				title : "Data not found !!",
 																				text : "Click ok to continue ",
 																				icon : "error"
+																			}).then(()=>{
+																				document
+																				.querySelector("#listContainer").innerHTML = '<h1 style="margin:2rem"> No Data Found</h1>'
+																				
 																			});
 																	return;
 																}

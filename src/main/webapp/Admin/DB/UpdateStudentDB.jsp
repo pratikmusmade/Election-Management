@@ -34,6 +34,8 @@ String address = m.getParameter("address");
 String phoneNumber = m.getParameter("phoneNumber");
 String enrollNo = m.getParameter("enrollmentNumber");
 String password = m.getParameter("password");
+String gender = m.getParameter("gender");
+
 
 PreparedStatement pstmt = con.prepareStatement(query );
 pstmt.setString(1, firstName);
@@ -45,8 +47,10 @@ pstmt.setString(6, email);
 pstmt.setString(7, password);
 pstmt.setString(8, branchId);
 pstmt.setString(9, yearId);
+pstmt.setString(10, gender);
+
 if(filePath != null){
-	pstmt.setString(10, student_img);
+	pstmt.setString(11, student_img);
 }
 
 out.print(pstmt.executeUpdate());  

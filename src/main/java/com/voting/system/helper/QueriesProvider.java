@@ -6,7 +6,7 @@ public class QueriesProvider {
 
 	public static String queryForStudentInfo = "select  " + "student.id, " + "student.firstName, "
 			+ "student.middleName, " + "student.lastName, " + "student.enrolment_number, " + "student.address, "
-			+ "student.email, " + "student.pass, " + "student.student_image, " + "branch.branch_name, "
+			+ "student.email, " + "student.pass, " + "student.student_image, " + "student.gender, " + "branch.branch_name, "
 			+ "acc_year.year_name " + "from student " + "inner join branch on student.branch_id = branch.id "
 			+ "inner join acc_year on student.year_id = acc_year.id ";
 
@@ -21,7 +21,7 @@ public class QueriesProvider {
 			+ "student.middleName, " + "student.lastName, " + "student.enrolment_number, " + "student.address, "
 			+ "student.email, " + "student.pass, " + "student.student_image, " + "student.branch_id,"
 			+ "branch.branch_name, " + "student.year_id,"
-			+ "student.phone_number,"
+			+ "student.phone_number, " + "student.gender, "
 			
 			+ "acc_year.year_name " + "from student "
 			+ "inner join branch on student.branch_id = branch.id "
@@ -29,7 +29,7 @@ public class QueriesProvider {
 
 	public static String queryForUpdatingStudent = "UPDATE student SET" + " firstName = ?," + " middleName = ?,"
 			+ " lastName = ?,  " + " enrolment_number = ?," + " address = ?," + " email = ?," + " pass = ?,"
-			+ " branch_id = ?," + " year_id = ?";
+			+ " branch_id = ?," + " year_id = ?," + " gender = ? ";
 
 	public static String insertIntoWarden = "insert into warden " + "( firstName ," + "middleName ," + "lastName ,"
 			+ "address ," + "email ," + "pass ," + "phoneNumber ," + "warden_image ," + "warden_status ,"
@@ -85,7 +85,9 @@ public class QueriesProvider {
 		       "c.partyName, " +
 		       "c.partySymbol, " +
 		       "c.slogan, " +
+		       "c.election_id ,"+
 		      " COUNT(v.vote_to_candidate) AS total_votes, " +
+		       "s.id, " + 
 		       "s.firstName, " +
 		       "s.middleName, " +
 		       "s.lastName, " +
@@ -96,5 +98,10 @@ public class QueriesProvider {
 		"WHERE c.election_id = ? " +
 		"GROUP BY c.id, c.partyName, c.partySymbol, c.slogan, s.firstName, s.middleName, s.lastName, s.student_image; " ;
 
+	public static String countNoOfMaleAndFemaleVote = "SELECT gender, COUNT(gender) as votes " +
+            "FROM vote " +
+            "INNER JOIN student ON student.id = vote.voter_id " +
+            "WHERE election_id = ? AND vote_to_candidate = ? " +
+            "GROUP BY gender;";
 
 }

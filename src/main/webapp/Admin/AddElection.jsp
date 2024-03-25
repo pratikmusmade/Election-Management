@@ -66,8 +66,9 @@ if (session.getAttribute("user") == null) {
 		<div class="container mt-5">
 			<div class="row">
 
-				<div class="col-lg-1"></div>
-				<div class="col-lg-10">
+				<!-- 				<div class="col-lg-1"></div>
+ -->
+				<div class="col-lg-12">
 					<h2>Election List</h2>
 					<table class="table table-bordered table-info table-striped">
 						<thead>
@@ -117,10 +118,11 @@ if (session.getAttribute("user") == null) {
 											name="electionName">
 										<button type="submit" class="btn btn-success">Add
 											Candidate</button>
-									</form>  &nbsp &nbsp
+									</form> &nbsp &nbsp
 
 
-									<form action="DB/DecommissionElection.jsp" method="post"
+									<form method="post"
+										onsubmit="decomElection(event,'<%=rs.getString("id")%>','<%=rs.getString("election_name")%>')"
 										style="display:<%=((!rs.getString("election_status").equals("In-Active")) ? "inline-block" : "none")%>;">
 										<input style="display: none" type="text" name="electionId"
 											value="<%=rs.getString("id")%>"><input
@@ -196,6 +198,10 @@ if (session.getAttribute("user") == null) {
 	let requestUrl = "DB/AddElectionDB.jsp";
 
 	
+	function demo(event) {
+		event.preventDefault();
+		console.log(event)
+	}
 	
 	cancelBtn.addEventListener("click",(e)=>{
 		e.preventDefault();
@@ -247,6 +253,55 @@ if (session.getAttribute("user") == null) {
 			});
 	}
 	    
+	
+    function decomElection(event,electionId,electionName){
+		event.preventDefault();
+		
+		Swal.fire({
+            icon: "warning",
+			  title: "Are you sure !!?",
+			  text:"Decommission (" + electionName + "Election !!)",
+			  showDenyButton: true,
+			  confirmButtonText: "Yes",
+			  denyButtonText: `Cancel`
+			}).then((result) => {
+			  if (result.isConfirmed) {
+				  $.ajax({
+				        url: "DB/DecommissionElection.jsp",
+				        type: "POST",
+				        data: {electionId},
+				        success: function(response) {
+				              if (response.trim() === "1") {
+				                  Swal.fire({
+				                    title: "Election Decommissioned Successfully",
+				                    text: "Click OK to continue!",
+				                    icon: "success",
+				                  }).then((res) => {
+				                    window.location.reload();
+				                  });
+				                } else {
+				                  Swal.fire({
+				                    icon: "error",
+				                    title: "Oops...",
+				                    text: "Something went wrong!",
+				                  });
+				                }
+				              },
+				        error: function(xhr, status, error) {
+				          console.log("Error:", error);
+				        }
+				      });
+			  } else if (result.isDenied) {
+			    Swal.fire("Election Not Deleted", "", "info");
+			  }
+			});
+	}
+	
+	
+	
+	
+	
+	
 	    
 	function updateElection(electionId,electionName){
 		submitBtn.className = "btn btn-success"

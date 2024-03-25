@@ -282,7 +282,7 @@ if(session.getAttribute("user") == null){
 								<td><img src="<%=rs.getString("student_image")%>"
 									class="img-thumbnail" alt="..."
 									style="height: 50px; width: 50px; border-radius: 100%"></td>
-								<td>stuFullName</td>
+								<td><%=stuFullName %></td>
 								<td><%=rs.getString("enrolment_number")%></td>
 
 								<td><%=rs.getString("email")%></td>

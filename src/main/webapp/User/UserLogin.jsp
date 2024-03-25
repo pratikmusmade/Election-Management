@@ -21,8 +21,7 @@
 				</div>
 				<form id="userLoginForm">
 					<div class="mb-3">
-						<label for="exampleInputEmail1" class="form-label">User
-							Name</label> <input type="text" class="form-control"
+						<label for="exampleInputEmail1" class="form-label">Enrollment Number</label> <input type="text" class="form-control"
 							name="enrollment_number" id="exampleInputEmail1"
 							aria-describedby="emailHelp" required>
 
@@ -48,7 +47,7 @@
 		<div class="alert alert-danger alert-dismissible fade show"
 		role="alert">
 		<i class="bi bi-exclamation-octagon-fill"></i>
-		<strong>Invalid Credentials!</strong> Your User-Name or Password is <strong>Incorrect !!!</strong>
+		<strong>Invalid Credentials!</strong> Your Enrollment Number or Password is <strong>Incorrect !!!</strong>
 		<button type="button" class="btn-close" data-bs-dismiss="alert"
 			aria-label="Close"></button>
 	</div>

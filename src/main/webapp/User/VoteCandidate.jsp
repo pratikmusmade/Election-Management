@@ -32,7 +32,7 @@ if (session.getAttribute("user") == null) {
 		electionName = rs.getString("election_name");
 	}
 	%>
-	<jsp:include page="../Components/NavBar.jsp"></jsp:include>
+	<jsp:include page="../Components/NavBarUser.jsp"></jsp:include>
 
 	<article style="margin-top: 6rem">
 		<div class="container mt-5">
@@ -61,11 +61,11 @@ if (session.getAttribute("user") == null) {
 				<div class="alert alert-danger alert-dismissible fade show"
 					role="alert">
 					<h5>
-					<i class="bi bi-exclamation-octagon-fill"></i> <strong>You
-						have already Voted in this Election</strong>
-					<button type="button" class="btn-close" data-bs-dismiss="alert"
-						aria-label="Close"></button>
-						</h5>
+						<i class="bi bi-exclamation-octagon-fill"></i> <strong>You
+							have already Voted in this Election</strong>
+						<button type="button" class="btn-close" data-bs-dismiss="alert"
+							aria-label="Close"></button>
+					</h5>
 				</div>
 			</div>
 			<%
@@ -105,9 +105,7 @@ if (session.getAttribute("user") == null) {
 							'<%=partySlogan%>',<%=rs.getString("id")%>)"
 								class="btn btn-primary mx-2 mb-2">Vote</button>
 
-							<div class="card-footer">
-								<small class="text-muted">Last updated 3 mins ago</small>
-							</div>
+
 						</div>
 					</div>
 					<%

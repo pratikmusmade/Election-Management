@@ -17,15 +17,16 @@ if (session.getAttribute("user") == null) {
 <jsp:include page="../Components/Header.jsp"></jsp:include>
 
 </head>
-
+	
 <body>
 	<%
 	String studentId = (String) session.getAttribute("user");
 	System.out.println(studentId);
 	Connection con = ConnectionProvider.getConnection();
-	PreparedStatement pstm = con.prepareStatement("select * from election");
+	PreparedStatement pstm = con.prepareStatement("select * from election where election_status = ?");
+	pstm.setString(1, "Active");
 	ResultSet rs = pstm.executeQuery();
-	%>
+	%>d
 	<jsp:include page="../Components/NavBarUser.jsp"></jsp:include>
 	<article style="margin-top: 6.5rem">
 		<div class="container">
@@ -53,7 +54,7 @@ if (session.getAttribute("user") == null) {
 							<div
 								class="card-title bg-info d-flex align-items-center justify-content-between py-1 px-3 m-0 rounded-top">
 								<h5
-									class="m-0 border border-3 rounded-3 px-3 py-1 bg-dark text-white">Status</h5>
+										class="m-0 border border-3 rounded-3 px-3 py-1 bg-dark text-white">Status</h5>
 								<h5
 									class="bg-success text-light py-1 border border-3 border-dark rounded-pill px-4 m-0"><%=rs.getString("election_status")%></h5>
 							</div>

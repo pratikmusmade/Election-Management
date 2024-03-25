@@ -9,20 +9,20 @@
   <div class="offcanvas-body">
     <nav class="navbar-dark">
       <ul class="navbar-nav">
-        <li>
+        <!-- <li>
           <div class="text-muted small fw-blod text-uppercase">core</div>
-        </li>
-        <li>
-          <a href="#" class="nav-link active">
+        </li> -->
+        <!-- <li>
+          <a href="AdminDashBoard.jsp" class="nav-link active">
             <span class="me-2"><i class="bi bi-speedometer2"></i></span>
             <span>Dashboard</span>
           </a>
-        </li>
+        </li> -->
         
         
-        <li class="my-4">
+        <!-- <li class="my-4">
           <hr class="dropdown-divider" />
-        </li>
+        </li> -->
 
         <li>
           <div class="text-muted small fw-blod text-uppercase">Operations</div>
